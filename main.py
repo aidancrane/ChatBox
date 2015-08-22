@@ -7,7 +7,7 @@ def index():
      if request.method == 'POST':
           email = request.form['email']
           password = request.form['password']
-          return ("Hello Kitty" + email + password)
+          return ("POST" + email + password)
      else:
           return render_template('index.html', name="Aidan")
 
