@@ -1,23 +1,29 @@
 #Test
-from flask import Flask, render_template, redirect, url_for, request
+from flask import Flask, render_template, redirect, url_for, request, session, escape
 #import flask_sijax
 app = Flask(__name__)
+app.secret_key = 'boop'
+
 
 @app.route("/", methods=['GET', 'POST'])
 def index():
      if request.method == 'POST':
-          email = request.form['email']
-          password = request.form['password']
-          return ("POST" + email + password)
+          session['email'] = request.form['email']
+          session['password'] = request.form['password']
+
+          if 'email' in session:
+               if session['email'] != "" or session['password'] != "":
+                    return render_template('index.html', isLoggedIn=session['email'])
+          return render_template('index.html')
+
      else:
-          return render_template('index.html', name="Aidan")
+          return render_template('index.html')
 
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():
 
-
-     return render_template('login.html', name="Aidan")
+     return render_template('login.html')
 '''
      error = None
      if request.method == "POST":

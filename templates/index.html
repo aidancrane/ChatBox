@@ -1,4 +1,5 @@
 <html>
+
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -6,24 +7,30 @@
     <meta name="description" content="">
     <meta name="author" content="">
     <title>Login to Continue</title>
-	<script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
-	<link ... href="{{ url_for('static', filename='css/bootstrap.min.css') }}" rel="stylesheet" />
-	<link ... href="{{ url_for('static', filename='css/bootstrap-theme.min.css') }}" rel="stylesheet" />
-	<link ... href="{{ url_for('static', filename='css/skeleton.css') }}" rel="stylesheet" />
-	<link ... href="{{ url_for('static', filename='css/normalize.css') }}" rel="stylesheet" />
-	<link href="//fonts.googleapis.com/css?family=Raleway:400,300,600" rel="stylesheet" type="text/css">
-  </head>
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+    <link ... href="{{ url_for('static', filename='css/bootstrap.min.css') }}" rel="stylesheet" />
+    <link ... href="{{ url_for('static', filename='css/bootstrap-theme.min.css') }}" rel="stylesheet" />
+    <link ... href="{{ url_for('static', filename='css/skeleton.css') }}" rel="stylesheet" />
+    <link ... href="{{ url_for('static', filename='css/normalize.css') }}" rel="stylesheet" />
+    <link href="//fonts.googleapis.com/css?family=Raleway:400,300,600" rel="stylesheet" type="text/css">
+</head>
+
 <body role="document">
-
-<div class="container theme-showcase" role="main">
-<p></p>
-<div class="jumbotron">
-<div class="container">
-
-{{name}}
+    <div class="container theme-showcase" role="main">
+        <p></p>
+        <div class="jumbotron">
+            <div class="container">
+                {% if isLoggedIn %}
+                <div> You are logged in as {{isLoggedIn}}.</div>
+                {% else %}
+                <div>
+                    You are not logged in,
+                    <a href="/login">click here to login.</a>
+                </div>
+                {% endif %}
+            </div>
+        </div>
     </div>
-      </div>
-
-	  </div>
 </body>
+
 </html>
