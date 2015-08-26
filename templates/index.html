@@ -21,15 +21,18 @@
         <div class="jumbotron">
             <div class="container">
                 {% if isLoggedIn %}
-                <div> You are logged in as {{isLoggedIn}}.</div>
-                {% else %}
                 <div>
-                    You are not logged in,
-                    <a href="/login">click here to login.</a>
+                    <p> You are logged in as {{isLoggedIn}}.</p>
                 </div>
-                {% endif %}
+                {% else %}
+                <div></div>
+                <p> You are not logged in,
+                    <a href="/login">click here to login.</a>
+                </p><a href="/database">Click here</a> to go to the database checker.
             </div>
+            {% endif %}
         </div>
+    </div>
     </div>
 </body>
 

@@ -3,6 +3,7 @@ from flask import Flask, render_template, redirect, url_for, request, session, e
 #import flask_sijax
 app = Flask(__name__)
 app.secret_key = 'boop'
+import sqlite3
 
 
 @app.route("/", methods=['GET', 'POST'])
@@ -18,8 +19,18 @@ def index():
 
      else:
           return render_template('index.html')
-
-
+     
+@app.route('/database')
+def database():
+     
+     conn = sqlite3.connect("users.db")
+     c = conn.cursor()
+     c.execute('CREATE TABLE {tn} ({nf} {ft})'.format(tn="user", nf="aidan", ft="TEXT"))
+     return (conn.execute("SELECT aidan  from users"))
+     conn.commit()
+     conn.close()
+     
+s
 @app.route('/login', methods=['GET', 'POST'])
 def login():
 
