@@ -39,13 +39,17 @@ def index():
 @app.route('/database')
 def database():
      
-     conn = sqlite3.connect("users.db")
-     c = conn.cursor()
-     c.execute('CREATE TABLE {tn} ({nf} {ft})'.format(tn="user", nf="aidan", ft="TEXT"))
-     return (conn.execute("SELECT aidan  from users"))
-     conn.commit()
-     conn.close()
+     connection = sqlite3.connect("users.db")
+     cursor = connection.cursor()
+     cursor.execute ("SELECT * FROM Users")
+     data = cursor.fetchall()
+     for row in data :
+          return (str(row[0]) + str(row[1]) + str(row[2]))
+     cursor.close ()
+     return ("GOT [" + str(connection.execute("SELECT * FROM Users")) + "]")
+     connection.close()
      
+      #c.execute('CREATE TABLE {tn} ({nf} {ft})'.format(tn="users", nf="aidan", ft="TEXT"))
 @app.route('/login', methods=['GET', 'POST'])
 def login():
 
