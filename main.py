@@ -5,8 +5,14 @@ app = Flask(__name__)
 app.secret_key = 'boop'
 import sqlite3
 import configparser
-
+from flask import request
+from flask import jsonify
+port = 5000
 # Behind the scenes stuff #
+import logging
+log = logging.getLogger('werkzeug')#logger for flask
+log.setLevel(logging.ERROR)#set that only errors are printted to the console
+bannedIps = []
 
 def saveConfig(configName):
     # Save any configuration changes
@@ -14,7 +20,7 @@ def saveConfig(configName):
         config.write(configfile)
 def config():
      # create the global config
-     global config, log_user_messages, console_user_messages
+     global config, log_user_messages, console_user_messages, port, num_of_bans
      # create JUST the file if it does not exist or read he file for append, depending on if the file exists
      gereateFileIfNotExist = open("config.cfg","a")
      gereateFileIfNotExist.close()
@@ -24,13 +30,26 @@ def config():
      try:
          config.read('config.cfg')
          shall_we_log = config.get("Settings", "Log User Messages").lower()
-         shall_print_to_console = config.get("Settings", "Print Messages to Console").lower()         
+         shall_print_to_console = config.get("Settings", "Print Messages to Console").lower()
+         bannedIpsprelist = config.get("Bans", "Banned Ips")
+         bannedIps = bannedIpsprelist.split(',')
+         try:
+             port = config.getint("Settings", "Port")
+         except ValueError:
+             port = 5000
+             log("Port Value error, port set to: " + port)
          saveConfig("config.cfg")           
      except:
          # Generate config, because it does not exists
+         config.read("config.cfg")
+         #clear_file = open("config.cfg", 'w')
+         #clear_file.close()
          config.add_section("Settings")
          config.set("Settings", "Log User Messages", "true")
          config.set("Settings", "Print Messages to Console", "false")
+         config.set("Settings", "Port", "5000")
+         config.add_section("Bans")
+         config.set("Bans", "Banned Ips", "")
          saveConfig("config.cfg")
          shall_we_log = config.get("Settings", "Log User Messages").lower()
          shall_print_to_console = config.get("Settings", "Print Messages to Console").lower()   
@@ -66,16 +85,24 @@ def message_log(log_message):
           #Add username logging here when usernames are sorted.
           message_log.write("[" + timeOfLog + "]:[" + log_message + "]; \n")
           message_log.close()
+def getIP():
+    ip = request.headers.get('User-Agent')
+    user_ip = str(request.remote_addr)
+    return user_ip
+def checkIfIpBanned(ip):
+    if (ip in bannedIps):
+        return render_template('banned.html')
 # End of behind the scenes #
-config()     
 init_log()
-log("Program successfully launched")
+log("Program Launched")
+config()     
 message_log("~Start of message log~")
 
 # Front of App #
 @app.route("/", methods=['GET', 'POST'])
 def index():
-     log("wat")
+     log("[index connction from]" + getIP())
+     print("Poop")
      if request.method == 'POST':
           
           session['email'] = request.form['email']
@@ -88,7 +115,6 @@ def index():
 
      else:
           return render_template('index.html')
-     
 @app.route('/database')
 def database():
      
@@ -103,7 +129,7 @@ def database():
 def login():
 
      return render_template('login.html')
-
+     checkIfIpBanned(getIP())
      error = None
      if request.method == "POST":
           if request.form["username"] != "admin" or request.form["password"] != "admin":
@@ -113,4 +139,4 @@ def login():
           return render_template("/login.html", error=error)
 
 if __name__ == "__main__":
-    app.run(host='0.0.0.0', debug=True)
+    app.run(host='0.0.0.0', port=port, debug=False)#setting debug to false allows for printing to the console
