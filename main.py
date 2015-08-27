@@ -1,12 +1,9 @@
-from flask import Flask, render_template, redirect, url_for, request, session, escape
+from flask import Flask, render_template, redirect, url_for, request, session, escape, request
 #import flask_sijax
-import datetime
+
 app = Flask(__name__)
 app.secret_key = 'boop'
 import sqlite3
-import configparser
-from flask import request
-from flask import jsonify
 import saveLog
 port = 5000
 # Behind the scenes stuff #
@@ -14,19 +11,19 @@ import logging
 log = logging.getLogger('werkzeug')#logger for flask
 log.setLevel(logging.ERROR)#set that only errors are printted to the console
 bannedIps = []
-saveLog = admin
+admin = saveLog
 
 # End of behind the scenes #
 admin.init_log()
 admin.log("Program Launched")
 admin.config()     
 admin.message_log("~Start of message log~")
+admin.log("Loaded config")
 
 # Front of App #
 @app.route("/", methods=['GET', 'POST'])
 def index():
-     log("[index connction from]" + getIP())
-     print("Poop")
+     admin.log("[index connction from]" + admin.getIP())
      if request.method == 'POST':
           
           session['email'] = request.form['email']
@@ -63,4 +60,4 @@ def login():
           return render_template("/login.html", error=error)
 
 if __name__ == "__main__":
-    app.run(host='0.0.0.0', port=port, debug=False)#setting debug to false allows for printing to the console
+    app.run(host='0.0.0.0', port=port, debug=True)#setting debug to false allows for printing to the console
