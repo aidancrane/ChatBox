@@ -5,3 +5,11 @@ This is a very light and small program that can be used to talk to people over a
 ## Side Note
 
 We are currently moving from python sockets to a web-based UI and server. Therefore It is not currently functional.
+
+## Todo
+
+1. Create Database
+⋅⋅1. Create database and tables automattically?
+1. Create dashboard (/dashboard)
+2. Store Cookies properly
+⋅⋅1. hash passwords
