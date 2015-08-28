@@ -36,6 +36,23 @@ def index():
 
      else:
           return render_template('index.html')
+     
+@app.route("/", methods=['GET', 'POST'])
+def signup():
+     admin.log("[signup connction from]" + admin.getIP())
+     if request.method == 'POST':
+          
+          session['email'] = request.form['email']
+          session['password'] = request.form['password']
+
+          if 'email' in session:
+               if session['email'] != "" or session['password'] != "":
+                    return render_template('index.html', isLoggedIn=session['email'])
+          return render_template('index.html', type="Sign Up")
+
+     else:
+          return render_template('index.html')
+     
 @app.route('/database')
 def database():
      
