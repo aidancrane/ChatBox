@@ -20,7 +20,9 @@
         <p></p>
         <div class="jumbotron">
             <div class="container">
-                {% if isLoggedIn %}
+                {% if isBanned %}
+                <p>You is banned</p>
+                {% else %} {% if isLoggedIn %}
                 <div>
                     <p> You are logged in as {{isLoggedIn}}.</p>
                 </div>
@@ -30,7 +32,7 @@
                     <a href="/login">click here to login.</a>
                 </p><a href="/database">Click here</a> to go to the database checker.
             </div>
-            {% endif %}
+            {% endif %} {% endif %}
         </div>
     </div>
     </div>
