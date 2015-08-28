@@ -36,8 +36,27 @@ def index():
 
      else:
           return render_template('index.html')
+     
+@app.route("/", methods=['GET', 'POST'])
+def signup():
+     admin.log("[signup connction from]" + admin.getIP())
+     if request.method == 'POST':
+          
+          session['email'] = request.form['email']
+          session['password'] = request.form['password']
+
+          if 'email' in session:
+               if session['email'] != "" or session['password'] != "":
+                    return render_template('index.html', isLoggedIn=session['email'])
+          return render_template('index.html', type="Sign Up")
+
+     else:
+          return render_template('index.html')
+     
 @app.route('/database')
 def database():
+
+     #we need to create a signup
      
      connection = sqlite3.connect("users.db")
      cursor = connection.cursor()
@@ -62,6 +81,7 @@ def login():
           else:
                return redirect(url_for("boop"))
           return render_template("/login.html", error=error)
+
 
 if __name__ == "__main__":
     app.run(host='0.0.0.0', port=port, debug=True)#setting debug to false allows for printing to the console
