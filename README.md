@@ -9,7 +9,8 @@ We are currently moving from python sockets to a web-based UI and server. Theref
 ## Todo
 
 1. Create Database
-⋅⋅1. Create database and tables automattically?
-1. Create dashboard (/dashboard)
-2. Store Cookies properly
-⋅⋅1. hash passwords
+   Create database and tables automattically?
+2. Create dashboard (/dashboard)
+3. Store Cookies properly
+   hash passwords
+## It should be noted that currently this version is not functional.
