@@ -10,7 +10,7 @@ We are currently moving from python sockets to a web-based UI and server. Theref
 
 1. Create Database
    Create database and tables automattically?
-2. Create dashboard (/dashboard)
+2. Create dashboard (/dashboard), currently being developed under a branch called "Dashboard"
 3. Store Cookies properly
    hash passwords
 ## It should be noted that currently this version is not functional.
