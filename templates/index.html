@@ -9,9 +9,9 @@
             <div class="container">
                 {% if isBanned %}
                 <p>You is banned</p>
-                {% else %} {% if session.email %}
+                {% else %} {% if session.username %}
                 <div>
-                    <p> You are logged in as {{session.email}}.</p>
+                    <p> You are logged in as {{session.username}}.</p>
                 </div>
                 {% else %}
                 <div></div>

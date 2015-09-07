@@ -25,33 +25,31 @@ print(admin.getBannedIp())
 def index():
      admin.log("[index connction from]" + admin.getIP())
      if request.method == 'POST':            
-          session['email'] = request.form['email']
+          session['username'] = request.form['username']
           session['password'] = request.form['password']
-
-          if 'email' in session:
-               if session['email'] != "" or session['password'] != "":
+          if 'username' in session:
+               if session['username'] != "" or session['password'] != "":
                     session['loggedin'] = "Yes"
-                    if (session['email'] in admin.admins):
-                         return render_template("/Admin/dashboard.html")
-                    return render_template('index.html', isLoggedIn=session['email'])
-                    if (session['email'] in admin.admins):
-                         return render_template("/Admin/dashboard.html")
+                    if (session['username'] in admin.admins):
+                         return render_template("/admin/dashboard.html")
+                    return render_template('index.html', isLoggedIn=session['username'])
+                    if (session['username'] in admin.admins):
+                         return render_template("/admin/dashboard.html")
           return render_template('index.html')
 
      else:
           return render_template('index.html')
-     
-@app.route("/", methods=['GET', 'POST'])
+@app.route("/signup", methods=['GET', 'POST'])
 def signup():
      admin.log("[signup connction from]" + admin.getIP())
      if request.method == 'POST':
           
-          session['email'] = request.form['email']
+          session['username'] = request.form['username']
           session['password'] = request.form['password']
 
-          if 'email' in session:
-               if session['email'] != "" or session['password'] != "":
-                    return render_template('index.html', isLoggedIn=session['email'])
+          if 'username' in session:
+               if session['username'] != "" or session['password'] != "":
+                    return render_template('index.html', isLoggedIn=session['username'])
           return render_template('index.html', type="Sign Up")
 
      else:
@@ -83,14 +81,14 @@ def login():
                return redirect(url_for("boop"))
           return render_template("/login.html", error=error)
 @app.route('/Admin/', methods=['GET', 'POST'])
-def admin_acsess():
-     email_of_user = session['email']
+def admin_access():
+     username_of_user = session['username']
      logged_in = session['LoggedIn']
      if request.method == "GET":
-          if (logged_in == "Yes" and email_of_user in admin.admins):
+          if (logged_in == "Yes" and username_of_user in admin.admins):
                return render_template("/admin/dashboard.html")
           else:
-               admin.log("Attempted Acess of admin section by a user with the email: " + session['email'])
+               admin.log("Attempted Acess of admin section by a user with the username: " + session['username'])
                return render_template("index.html")
      elif request.method == "POST":
           pass
@@ -105,11 +103,13 @@ def admin_dashboard():
                admin.log("Server Terminated at " + admin.GetTime())
                return render_template("/admin/dashboard.html", isShuttingDown=admin.GetTime())
           if request.form['kill'] == 'Log Out':
-               admin.log("Logging out" + session['email'])
-               email = session['email']
-               del session['email']
-               del session['password']
-               return render_template("/admin/dashboard.html", isLoggingOut=email)
+               if session['username'] or session['password']:
+                    username = session['username']
+                    del session['username']
+                    del session['password']
+                    admin.log("Logging out" + username)
+
+               return render_template("/admin/dashboard.html", isLoggingOut=username)
                
                #os._exit(1)
                # Do things
