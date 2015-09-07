@@ -50,3 +50,4 @@ In the server window, you should see the following:
 
 ### Known issues
 There is litterally no chat function so far.
+Banning an IP is not yet functional
