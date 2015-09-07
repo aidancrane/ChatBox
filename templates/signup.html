@@ -1,22 +1,8 @@
 <html>
-
-<head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="">
-    <meta name="author" content="">
-    <title>Signup!</title>
-    <script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
-    <link ... href="{{ url_for('static', filename='css/bootstrap.min.css') }}" rel="stylesheet" />
-    <link ... href="{{ url_for('static', filename='css/bootstrap-theme.min.css') }}" rel="stylesheet" />
-    <link ... href="{{ url_for('static', filename='css/skeleton.css') }}" rel="stylesheet" />
-    <link ... href="{{ url_for('static', filename='css/normalize.css') }}" rel="stylesheet" />
-    <link href="//fonts.googleapis.com/css?family=Raleway:400,300,600" rel="stylesheet" type="text/css">
-</head>
+{% include 'header.html' %}
 
 <body role="document">
-	{% include 'admin/header.html' %}
+    {% include 'admin/header.html' %}
     <div class="container theme-showcase" role="main">
         <p></p>
         <div class="jumbotron">
