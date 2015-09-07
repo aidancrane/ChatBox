@@ -3,7 +3,9 @@ import datetime
 import configparser
 admins = []
 bannedIps = []
+config_file = "config.cfg"
 def getAdmins():
+    config.read(config_file)
     adminspresplit = config.get("Settings", "Admins")
     admins = list(adminspresplit.split(','))
     return admins
@@ -19,13 +21,13 @@ def config():
      # create the global config
      global config, log_user_messages, console_user_messages, port, num_of_bans, admins, bannedIps
      # create JUST the file if it does not exist or read he file for append, depending on if the file exists
-     gereateFileIfNotExist = open("config.cfg","a")
+     gereateFileIfNotExist = open(config_file,"a")
      gereateFileIfNotExist.close()
      config = configparser.ConfigParser()
-     config.read("config.cfg")
+     config.read(config_file)
      # Check if the config exists
      try:
-         config.read('config.cfg')
+         config.read(config_file)
          shall_we_log = config.get("Settings", "Log User Messages").lower()
          shall_print_to_console = config.get("Settings", "Print Messages to Console").lower()
          adminspresplit = config.get("Settings", "Admins")
@@ -37,10 +39,10 @@ def config():
          except ValueError:
              port = 5000
              log("Port Value error, port set to: " + port)
-         saveConfig("config.cfg")           
+         saveConfig(config_file)           
      except:
          # Generate config, because it does not exists
-         config.read("config.cfg")
+         config.read(config_file)
          #clear_file = open("config.cfg", 'w')
          #clear_file.close()
          config.add_section("Settings")
@@ -50,7 +52,7 @@ def config():
          config.set("Settings", "Port", "5000")
          config.add_section("Bans")
          config.set("Bans", "Banned Ips", "")
-         saveConfig("config.cfg")
+         saveConfig(config_file)
          shall_we_log = config.get("Settings", "Log User Messages").lower()
          shall_print_to_console = config.get("Settings", "Print Messages to Console").lower()   
      if (shall_we_log == "true"):
@@ -69,13 +71,16 @@ def init_log():
      message_file.close()
      
 def log(log_message):
-     timeOfLog = datetime.datetime.now().strftime("%d-%m-%Y %H:%M:%S")
+     timeOfLog = GetTime()
      print ("[Log] [" + log_message + "]")
      log = open("Log.log", 'a')
      #Add username logging here when usernames are sorted.
      log.write("[" + timeOfLog + "][" + log_message + "]; \n")
      log.close()
-     
+
+def GetTime():
+    time = datetime.datetime.now().strftime("%d-%m-%Y %H:%M:%S")
+    return time
 def message_log(log_message):
      if (log_user_messages):
           timeOfLog = datetime.datetime.now().strftime("%d-%m-%Y %H:%M:%S")
@@ -92,3 +97,9 @@ def getIP():
 def checkIfIpBanned(ip):
     if (ip in bannedIps):
         return render_template('banned.html')
+
+def shutdown_server():
+    func = request.environ.get('werkzeug.server.shutdown')
+    if func is None:
+        raise RuntimeError('Not running with the Werkzeug Server')
+    func()
