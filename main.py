@@ -100,8 +100,16 @@ def admin_dashboard():
           return render_template("/admin/dashboard.html")
      if request.method == "POST":
           if request.form['kill'] == 'Stop Server':
-               return ("I cant let you do that dave")
+               shutdown_server()
+               return render_template("/admin/shuttingdown.html")
+               
+               #os._exit(1)
                # Do things
      return render_template("/admin/dashboard.html")
+def shutdown_server():
+    func = request.environ.get('werkzeug.server.shutdown')
+    if func is None:
+        raise RuntimeError('Not running with the Werkzeug Server')
+    func()
 if __name__ == "__main__":
     app.run(host='0.0.0.0', port=port, debug=True)#setting debug to false allows for printing to the console

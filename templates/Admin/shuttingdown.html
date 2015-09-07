@@ -1,3 +1,4 @@
+<!--Dashboard-->
 <html>
 
 <head>
@@ -6,7 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="">
     <meta name="author" content="">
-    <title>Login to Continue</title>
+    <title>Admin Dashboard</title>
     <script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
     <link ... href="{{ url_for('static', filename='css/bootstrap.min.css') }}" rel="stylesheet" />
     <link ... href="{{ url_for('static', filename='css/bootstrap-theme.min.css') }}" rel="stylesheet" />
@@ -14,29 +15,10 @@
     <link ... href="{{ url_for('static', filename='css/normalize.css') }}" rel="stylesheet" />
     <link href="//fonts.googleapis.com/css?family=Raleway:400,300,600" rel="stylesheet" type="text/css">
 </head>
-
-<body role="document">
-	{% include 'admin/header.html' %}
-    <div class="container theme-showcase" role="main">
-        <p></p>
-        <div class="jumbotron">
-            <div class="container">
-                {% if isBanned %}
-                <p>You is banned</p>
-                {% else %} {% if isLoggedIn %}
-                <div>
-                    <p> You are logged in as {{isLoggedIn}}.</p>
-                </div>
-                {% else %}
-                <div></div>
-                <p> You are not logged in,
-                    <a href="/login">click here to login.</a>
-                </p><a href="/database">Click here</a> to go to the database checker.
-            </div>
-            {% endif %} {% endif %}
-        </div>
-    </div>
-    </div>
-</body>
+{% include 'admin/header.html' %}
+<div class="container">
+    <h1>Server Shutting down...</h1>
+	<p>To restart the server, you will have to manually restart it from the console...</p>
+</div>
 
 </html>

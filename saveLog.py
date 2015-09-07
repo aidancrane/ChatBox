@@ -4,8 +4,12 @@ import configparser
 admins = []
 bannedIps = []
 def getAdmins():
+    adminspresplit = config.get("Settings", "Admins")
+    admins = list(adminspresplit.split(','))
     return admins
 def getBannedIp():
+    bannedIpsprelist = config.get("Bans", "Banned Ips")
+    bannedIps = list(bannedIpsprelist.split(','))
     return bannedIps
 def saveConfig(configName):
     # Save any configuration changes
