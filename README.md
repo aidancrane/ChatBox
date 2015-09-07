@@ -1,16 +1,52 @@
-## Chat Box
+# ChatBox
+ChatBox is a lightweight Python-built online chat server, It's currently under heavy development but will be ready soon, hopefully.
 
-This is a very light and small program that can be used to talk to people over a LAN network, or if a server is forwarded correctly, then it also can be used for chat globally, it is intended to be extremly light weight so uses strings.
+## General Requirements
 
-## Side Note
+In order to run chatbox you will need
 
-We are currently moving from python sockets to a web-based UI and server. Therefore It is not currently functional.
+* [Python](https://www.python.org/)
+ We are currently developing in Python3.4.3
+* [Flask](http://flask.pocoo.org/)
+ Flask is the webserver and a large part of the server
+* [Flask-Sijax](https://pythonhosted.org/Flask-Sijax/)
+ (Not currently used, but we will soon)
 
-## Todo
+## users.db
+Currently we are in development so we currently dont have a way of editing users inside of ChatBox, so you will have to use an editing program like [Sqlitebrowser](http://sqlitebrowser.org/).
 
-1. Create Database
-   Create database and tables automattically?
-2. Create dashboard (/dashboard), currently being developed under a branch called "Dashboard"
-3. Store Cookies properly
-   hash passwords
-## It should be noted that currently this version is not functional.
+
+## Log.log and Message.log
+Log.log will contain all verbose information about the server, such as startup and shutdown.
+Message.log will contain only messages used by the server.
+
+### Running
+
+To Run the server (currently with 'debug=True', which you should never do publically)
+
+* Install all requirements
+
+	see above
+
+* Start main.py
+
+	python main.py
+
+* You can then browse to [127.0.0.1](http://127.0.0.1/)
+
+In the Log.log, you should see some logs like so:
+
+	[07-09-2015 12:13:23][Program Launched]; 
+	[07-09-2015 12:13:23][Loaded config]; 
+	[07-09-2015 12:14:55][[index connction from]127.0.0.1]; 
+
+
+In the server window, you should see the following:
+
+	[Log] [Program Launched]
+	[Log] [Loaded config]
+	['admin']
+	['']
+
+### Known issues
+There is litterally no chat function so far.
