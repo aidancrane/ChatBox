@@ -88,22 +88,20 @@ def admin_acsess():
      logged_in = session['LoggedIn']
      if request.method == "GET":
           if (logged_in == "Yes" and email_of_user in admin.admins):
-               return render_template("/Admin/dashboard.html")
+               return render_template("/admin/dashboard.html")
           else:
                admin.log("Attempted Acess of admin section by a user with the email: " + session['email'])
                return render_template("index.html")
      elif request.method == "POST":
           pass
-@app.route('/Admin/dashboard', methods=['GET', 'POST'])
+@app.route('/admin/dashboard', methods=['GET', 'POST'])
 def admin_dashboard():
      if request.method == "GET":
-          return render_template("/Admin/dashboard.html")
+          return render_template("/admin/dashboard.html")
      if request.method == "POST":
-          if request.form['submit'] == 'submit':
-               admin.log("Shutting down...")
-               #os._exit(1)
-          else:
-               return render_template("/Admin/dashboard.html")
-     return render_template("/Admin/dashboard.html")
+          if request.form['kill'] == 'Stop Server':
+               return ("I cant let you do that dave")
+               # Do things
+     return render_template("/admin/dashboard.html")
 if __name__ == "__main__":
     app.run(host='0.0.0.0', port=port, debug=True)#setting debug to false allows for printing to the console
