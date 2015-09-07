@@ -1,13 +1,19 @@
 from flask import request
 import datetime
 import configparser
+admins = []
+bannedIps = []
+def getAdmins():
+    return admins
+def getBannedIp():
+    return bannedIps
 def saveConfig(configName):
     # Save any configuration changes
     with open(configName, "w") as configfile:
         config.write(configfile)
 def config():
      # create the global config
-     global config, log_user_messages, console_user_messages, port, num_of_bans
+     global config, log_user_messages, console_user_messages, port, num_of_bans, admins, bannedIps
      # create JUST the file if it does not exist or read he file for append, depending on if the file exists
      gereateFileIfNotExist = open("config.cfg","a")
      gereateFileIfNotExist.close()
@@ -18,8 +24,10 @@ def config():
          config.read('config.cfg')
          shall_we_log = config.get("Settings", "Log User Messages").lower()
          shall_print_to_console = config.get("Settings", "Print Messages to Console").lower()
+         adminspresplit = config.get("Settings", "Admins")
+         admins = list(adminspresplit.split(','))
          bannedIpsprelist = config.get("Bans", "Banned Ips")
-         bannedIps = bannedIpsprelist.split(',')
+         bannedIps = list(bannedIpsprelist.split(','))
          try:
              port = config.getint("Settings", "Port")
          except ValueError:
@@ -34,6 +42,7 @@ def config():
          config.add_section("Settings")
          config.set("Settings", "Log User Messages", "true")
          config.set("Settings", "Print Messages to Console", "false")
+         config.set("Settings", "Admins", "admin")
          config.set("Settings", "Port", "5000")
          config.add_section("Bans")
          config.set("Bans", "Banned Ips", "")
@@ -56,7 +65,7 @@ def init_log():
      message_file.close()
      
 def log(log_message):
-     timeOfLog = datetime.datetime.now().strftime("%d-%m-%Y %H:%M:%S" + " : ")
+     timeOfLog = datetime.datetime.now().strftime("%d-%m-%Y %H:%M:%S")
      print ("[Log] [" + log_message + "]")
      log = open("Log.log", 'a')
      #Add username logging here when usernames are sorted.
