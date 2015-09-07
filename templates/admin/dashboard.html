@@ -5,47 +5,49 @@
     <div class="container">
         <div class="alert alert-danger alert-dismissible fade in" role="alert">
             <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span></button>
-            <strong>Server Stopped!</strong> To restart the server, you will have to manually restart it from the console...
+            <strong>Server Stopped!</strong> {{isShuttingDown}} To restart the server, you will have to manually restart it from the console...
         </div>
-        {% endif %} {% if isShuttingDown %}
-        <div class="container">
-            <div class="alert alert-warning alert-dismissible fade in" role="alert">
-                <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span></button>
-                <strong>You have been logged out!</strong> To login, click the home button.
+    </div>
+    {% endif %} {% if isLoggingOut %}
+    <div class="container">
+        <div class="alert alert-warning alert-dismissible fade in" role="alert">
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span></button>
+            <strong>You have been logged out!</strong> To login, click the home button.
+        </div>
+    </div>
+    {% endif %}
+    <div style="float: left; width: 50%">
+        <form action="/admin/dashboard" method="post">
+            <div style="float: left; width: 40%">
+                <input type="text" name="ban_ip" id="ban_ip" placeholder="IP Address"></input>
             </div>
-            {% endif %}
-            <div style="float: left; width: 50%">
-                <form action="/admin/dashboard" method="post">
-                    <div style="float: left; width: 40%">
-                        <input type="text" name="ban_ip" id="ban_ip" placeholder="IP Address"></input>
-                    </div>
-                    <div style="float: left; width: 25%">
-                        <button class="btn btn-warning" type="submit" name="Ban" value="Ban IP" />Submit Ban IP</button>
-                    </div>
-                </form>
+            <div style="float: left; width: 25%">
+                <button class="btn btn-warning" type="submit" name="Ban" value="Ban IP" />Submit Ban IP</button>
             </div>
-            <div style="float: right; width: 50%">
-                <form action="/admin/dashboard" method="post">
-                    <p style="float: left; width: 25%"><strong>Shut down server?</strong></p>
-                    <button style="float: left; width: 25%" class="btn btn-danger" type="submit" name="kill" value="Stop Server" />Stop Server :(</button>
-                </form>
-            </div>
-            <p></p>
-            <div style="float: right; width: 50%">
-                <form action="/admin/dashboard" method="post">
-                    <p style="float: left; width: 25%"><strong>LOG OUT?</strong></p>
-                    <button style="float: left; width: 25%" class="btn btn-danger" type="submit" name="kill" value="Log Out" />Log out :(</button>
-                </form>
-            </div>
-            <!--
+        </form>
+    </div>
+    <div style="float: right; width: 50%">
+        <form action="/admin/dashboard" method="post">
+            <p style="float: left; width: 25%"><strong>Shut down server?</strong></p>
+            <button style="float: left; width: 25%" class="btn btn-danger" type="submit" name="kill" value="Stop Server" />Stop Server :(</button>
+        </form>
+    </div>
+    <p></p>
+    <div style="float: right; width: 50%">
+        <form action="/admin/dashboard" method="post">
+            <p style="float: left; width: 25%"><strong>LOG OUT?</strong></p>
+            <button style="float: left; width: 25%" class="btn btn-danger" type="submit" name="kill" value="Log Out" />Log out :(</button>
+        </form>
+    </div>
+    <!--
         close server down
         ban ips
         clear chat
         kick all
         -->
-        </div>
-        <div class="container">
-            {{session.email}} {{session.password}}
-        </div>
+</div>
+<div class="container">
+    {{session.email}} {{session.password}}
+</div>
 
 </html>

@@ -103,7 +103,13 @@ def admin_dashboard():
                admin.shutdown_server()#waits for the last request to be serverd before shutting down
                admin.log("Shutting Down...")
                admin.log("Server Terminated at " + admin.GetTime())
-               return render_template("/admin/shuttingdown.html")
+               return render_template("/admin/dashboard.html", isShuttingDown=admin.GetTime())
+          if request.form['kill'] == 'Log Out':
+               admin.log("Logging out" + session['email'])
+               email = session['email']
+               del session['email']
+               del session['password']
+               return render_template("/admin/dashboard.html", isLoggingOut=email)
                
                #os._exit(1)
                # Do things
