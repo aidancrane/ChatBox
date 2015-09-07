@@ -17,23 +17,28 @@
 </head>
 {% include 'admin/header.html' %}
 <div class="container">
-	<div style="float: left; width: 50%">
-		<form action="/admin/dashboard" method="post">
-			<div style="float: left; width: 40%">
-				<input type="text" name="ban_ip" id="ban_ip" placeholder="IP Address"></input>
-			</div>
-			<div style="float: left; width: 25%">
-				<button class="btn btn-warning" type="submit" name="Ban" value="Ban IP" />Submit Ban IP</button>
-			</div>
-		</form>
-	</div>
-	<div style="float: right; width: 50%">
-		<form action="/admin/dashboard" method="post">
-			
-			<p style="float: left; width: 25%"><strong>Shut down server?</strong></p>
-			<button style="float: left; width: 25%" class="btn btn-danger" type="submit" name="kill" value="Stop Server" />Stop Server :(</button>
-		</form>
-	</div>
+    {% if isShuttingDown %}
+    <div class="container">
+        <h1>Server Shutting down...</h1>
+        <p>To restart the server, you will have to manually restart it from the console...</p>
+    </div>
+    {% endif %}
+    <div style="float: left; width: 50%">
+        <form action="/admin/dashboard" method="post">
+            <div style="float: left; width: 40%">
+                <input type="text" name="ban_ip" id="ban_ip" placeholder="IP Address"></input>
+            </div>
+            <div style="float: left; width: 25%">
+                <button class="btn btn-warning" type="submit" name="Ban" value="Ban IP" />Submit Ban IP</button>
+            </div>
+        </form>
+    </div>
+    <div style="float: right; width: 50%">
+        <form action="/admin/dashboard" method="post">
+            <p style="float: left; width: 25%"><strong>Shut down server?</strong></p>
+            <button style="float: left; width: 25%" class="btn btn-danger" type="submit" name="kill" value="Stop Server" />Stop Server :(</button>
+        </form>
+    </div>
     <!--
         close server down
         ban ips
