@@ -33,14 +33,12 @@
         </form>
     </div>
     <p></p>
-    {% if session.username %}
     <div style="float: right; width: 50%">
         <form action="/admin/dashboard" method="post">
             <p style="float: left; width: 25%"><strong>LOG OUT?</strong></p>
             <button style="float: left; width: 25%" class="btn btn-danger" type="submit" name="kill" value="Log Out" />Log out :(</button>
         </form>
     </div>
-    {% endif %}
     <!--
         close server down
         ban ips
