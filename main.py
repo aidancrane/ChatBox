@@ -53,7 +53,7 @@ def signup():
           return render_template('index.html', type="Sign Up")
 
      else:
-          return render_template('index.html')
+          return render_template('signup.html')
      
 @app.route('/database')
 def database():
@@ -62,10 +62,10 @@ def database():
      cursor = connection.cursor()
      cursor.execute ("SELECT * FROM Users")
      data = cursor.fetchall()
-     for row in data :
-          return (str(row[0]) + str(row[1]) + str(row[2]))
+     for i in data:
+          data = i
+     return data[2]
      cursor.close ()
-     return ("GOT [" + str(connection.execute("SELECT * FROM Users")) + "]")
      connection.close()
      
       #c.execute('CREATE TABLE {tn} ({nf} {ft})'.format(tn="users", nf="aidan", ft="TEXT"))
@@ -80,7 +80,7 @@ def login():
           else:
                return redirect(url_for("boop"))
           return render_template("/login.html", error=error)
-@app.route('/Admin/', methods=['GET', 'POST'])
+@app.route('/admin/', methods=['GET', 'POST'])
 def admin_access():
      username_of_user = session['username']
      logged_in = session['LoggedIn']

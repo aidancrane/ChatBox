@@ -5,37 +5,70 @@
     {% include 'admin/header.html' %}
     <div class="container theme-showcase" role="main">
         <p></p>
+        <script>
+        function passAndEmail() {
+            var fistPassword = document.getElementById("inputPassword").value;
+            var secondPassword = document.getElementById("inputPasswordTwo").value;
+            var fistEmail = document.getElementById("inputPassword").value;
+            var secondEmail = document.getElementById("inputPasswordTwo").value;
+            if (fistPassword != secondPassword) {
+                alert("oy")
+
+            }
+        }
+        </script>
         <div class="jumbotron">
-            <div class="container">
-                <form class="form-signin" method="POST" action="/" />
-                <h2 class="form-signin-heading">Please sign up</h2>
-                <label class="sr-only" for="inputtext">Name</label>
-                <input class="u-full-width" type="text" placeholder="Your Name" id="name" name="name">
-                <label class="sr-only" for="inputusername">username address</label>
-                <input class="u-full-width" type="username" placeholder="Your username" id="username" name="username">
-                <label class="sr-only" for="inputPassword">Password</label>
-                <input class="u-full-width" type="password" placeholder="Your Password" id="password" name="password">
-                <div class="checkbox">
-                    <label>
-                        <input type="checkbox" value="remember-me"> Remember me
-                    </label>
-                </div>
-                <button class="btn btn-lg btn-primary btn-block" type="submit">Sign up</button>
-                </form>
-                <div align="center">
-                    <script>
-                    document.write('<a href="' + document.referrer + '">Go Back</a>');
-                    </script>
-                    <button onclick="myFunction()">Click me</button>
-                    <p id="demo"></p>
-                    <script>
-                    function myFunction() {
-                        document.getElementById("demo").innerHTML = "Hello World";
-                    }
-                    </script>
-                </div>
-            </div>
+            <form class="form-horizontal">
+                <fieldset>
+                    <div id="legend">
+                        <legend class="form-signin-heading">Register</legend>
+                    </div>
+                    <div class="control-group">
+                        <label class="control-label" for="realname">Full Name</label>
+                        <div class="controls">
+                            <input type="text" id="inputRealname" class="form-control" placeholder="Josh" required="" autofocus="">
+                            <p>This is how we will refer to you</p>
+                        </div>
+                    </div>
+                    <div class="control-group">
+                        <label class="control-label" for="username">Username</label>
+                        <div class="controls">
+                            <input type="text" id="inputUsername" class="form-control" placeholder="email@gmail.com" required="" autofocus="">
+                            <p>Username can contain any letters or numbers, without spaces</p>
+                        </div>
+                    </div>
+                    <div class="control-group">
+                        <label class="control-label" for="email">E-mail</label>
+                        <div class="controls">
+                            <input type="email" id="inputEmail" class="form-control" placeholder="Email address" required="" autofocus="">
+                            <p>Please provide your E-mail</p>
+                        </div>
+                    </div>
+                    <div class="control-group">
+                        <label class="control-label" for="password">Password</label>
+                        <div class="controls">
+                            <input type="password " id="inputPassword" class="form-control " placeholder="Password " required=" ">
+                            <p>Password should be at least 4 characters</p>
+                        </div>
+                    </div>
+                    <div class="control-group">
+                        <label class="control-label" for="password_confirm">Confirm Password</label>
+                        <div class="controls">
+                            <input type="password " id="inputPasswordTwo" class="form-control " placeholder="Password " required=" ">
+                            <p>Please confirm password</p>
+                        </div>
+                    </div>
+                    <div class="control-group">
+                        <!-- Button -->
+                        <div class="controls">
+                            <button class="btn btn-lg btn-primary btn-block" onclick="passAndEmail()">Sign up</button>
+                        </div>
+                    </div>
+                </fieldset>
+            </form>
         </div>
+    </div>
+    </div>
     </div>
 </body>
 
