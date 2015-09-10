@@ -39,22 +39,22 @@ def config():
          except ValueError:
              port = 5000
              log("Port Value error, port set to: " + port)
-         saveConfig(config_file)           
+         saveConfig(config_file)
      except:
          # Generate config, because it does not exists
          config.read(config_file)
          #clear_file = open("config.cfg", 'w')
          #clear_file.close()
          config.add_section("Settings")
-         config.set("Settings", "Log User Messages", "true")
-         config.set("Settings", "Print Messages to Console", "false")
-         config.set("Settings", "Admins", "admin")
+         config.set("Settings", "Log Messages", "true")
+         config.set("Settings", "Console Output", "false")
+         config.set("Settings", "Admins", "admin") # Database now outdates this feature
          config.set("Settings", "Port", "5000")
-         config.add_section("Bans")
-         config.set("Bans", "Banned Ips", "")
+         config.add_section("Bans")  # Database now outdates this feature
+         config.set("Bans", "Banned Ips", "")  # Database now outdates this feature
          saveConfig(config_file)
          shall_we_log = config.get("Settings", "Log User Messages").lower()
-         shall_print_to_console = config.get("Settings", "Print Messages to Console").lower()   
+         shall_print_to_console = config.get("Settings", "Print Messages to Console").lower()
      if (shall_we_log == "true"):
           log_user_messages = True
      else:

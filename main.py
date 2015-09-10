@@ -60,18 +60,8 @@ def signup():
 
 @app.route('/database')
 def database():
+    return (str(data.checkLogin("admin", "password")))
 
-     connection = sqlite3.connect("users.db")
-     cursor = connection.cursor()
-     cursor.execute ("SELECT * FROM Users")
-     data = cursor.fetchall()
-     for i in data:
-          data = i
-     #return data[2]
-     cursor.close ()
-     connection.close()
-
-      #c.execute('CREATE TABLE {tn} ({nf} {ft})'.format(tn="users", nf="aidan", ft="TEXT"))
 @app.route('/login', methods=['GET', 'POST'])
 def login():
      return render_template('login.html')
