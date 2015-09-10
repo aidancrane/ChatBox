@@ -35,8 +35,10 @@
                     <button style="float: left; width: 25%" class="btn btn-danger" type="submit" name="kill" value="Stop Server">Stop Server :(</button>
                 </form>
             </div>
+			
             <p></p>
             {% if session.username %}
+			<BR>&nbsp;<BR>
             <div style="float: right; width: 50%">
                 <form action="/admin/dashboard" method="post">
                     <p style="float: left; width: 25%"><strong>LOG OUT?</strong></p>
@@ -51,6 +53,22 @@
                 kick all
                 -->
     </div>
+	<BR>&nbsp;<BR>
+	<div class="container">
+		<div style="float: left; width: 30%">
+			<form action="/admin/dashboard" method="post">
+				<label><strong>Ban User</strong></label>
+				<div class="input-group">
+					<span class="input-group-addon" id="ip">Username</span>
+					<input style="float: left; width: 65%"class="form-control" type="text" name="username_to_ban" id="username" placeholder="Insert Username">
+					<button style="float: left; width: 35%"class="btn btn-warning" type="submit" name="Username" value="Username">Submit</button>
+				</div>
+			</form>
+		</div>
+		<div style="float: left; width: 50%">
+			<p>Boop</p>
+		</div>
+	</div>
     <div class="container">
         {{session.username}} {{session.password}}
     </div>
