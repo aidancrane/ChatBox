@@ -15,7 +15,7 @@ admin = saveLog
 # End of behind the scenes #
 admin.init_log()
 admin.log("Program Launched")
-admin.config()     
+admin.config()
 admin.message_log("~Start of message log~")
 admin.log("Loaded config")
 print(admin.getAdmins())
@@ -24,7 +24,7 @@ print(admin.getBannedIp())
 @app.route("/", methods=['GET', 'POST'])
 def index():
      admin.log("[index connction from]" + admin.getIP())
-     if request.method == 'POST':            
+     if request.method == 'POST':
           session['username'] = request.form['username']
           session['password'] = request.form['password']
           if 'username' in session:
@@ -43,7 +43,7 @@ def index():
 def signup():
      admin.log("[signup connction from]" + admin.getIP())
      if request.method == 'POST':
-          
+
           session['username'] = request.form['username']
           session['password'] = request.form['password']
 
@@ -54,10 +54,10 @@ def signup():
 
      else:
           return render_template('signup.html')
-     
+
 @app.route('/database')
 def database():
-     
+
      connection = sqlite3.connect("users.db")
      cursor = connection.cursor()
      cursor.execute ("SELECT * FROM Users")
@@ -67,7 +67,7 @@ def database():
      return data[2]
      cursor.close ()
      connection.close()
-     
+
       #c.execute('CREATE TABLE {tn} ({nf} {ft})'.format(tn="users", nf="aidan", ft="TEXT"))
 @app.route('/login', methods=['GET', 'POST'])
 def login():
@@ -110,7 +110,7 @@ def admin_dashboard():
                     admin.log("Logging out" + username)
 
                return render_template("/admin/dashboard.html", isLoggingOut=username)
-               
+
                #os._exit(1)
                # Do things
      return render_template("/admin/dashboard.html")
