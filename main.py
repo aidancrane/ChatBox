@@ -5,12 +5,15 @@ app = Flask(__name__)
 app.secret_key = 'boop'
 import sqlite3
 import saveLog
+import databaseInteract
+admin = saveLog
+data = databaseInteract
 port = 5000
 # Behind the scenes stuff #
 import logging
 log = logging.getLogger('werkzeug')#logger for flask
 log.setLevel(logging.ERROR)#set that only errors are printted to the console
-admin = saveLog
+
 
 # End of behind the scenes #
 admin.init_log()
@@ -64,7 +67,7 @@ def database():
      data = cursor.fetchall()
      for i in data:
           data = i
-     return data[2]
+     #return data[2]
      cursor.close ()
      connection.close()
 
