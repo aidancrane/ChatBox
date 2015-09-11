@@ -12,7 +12,7 @@ port = 5000
 # Behind the scenes stuff #
 import logging
 log = logging.getLogger('werkzeug')#logger for flask
-log.setLevel(logging.ERROR)#set that only errors are printted to the console
+log.setLevel(logging.INFO)#set that only errors are printted to the console
 
 
 # End of behind the scenes #
@@ -26,22 +26,32 @@ print(admin.getBannedIp())
 # Front of App #
 @app.route("/", methods=['GET', 'POST'])
 def index():
-     admin.log("[index connction from]" + admin.getIP())
-     if request.method == 'POST':
-          session['username'] = request.form['username']
-          session['password'] = request.form['password']
-          if 'username' in session:
-               if session['username'] != "" or session['password'] != "":
-                    session['loggedin'] = "Yes"
-                    if (session['username'] in admin.admins):
-                         return render_template("/admin/dashboard.html")
-                    return render_template('index.html', isLoggedIn=session['username'])
-                    if (session['username'] in admin.admins):
-                         return render_template("/admin/dashboard.html")
-          return render_template('index.html')
-
-     else:
-          return render_template('index.html')
+    admin.log("[index connection from '" + admin.getIP() + "' ]")
+    if request.method == "POST":
+         firstdata = request.form["username"]
+         passdata = request.form["password"]
+         if request.form["username"] != "" or request.form["password"] != "":
+              if data.checkLogin(firstdata, passdata) == True:
+                   session['loggedin'] = "Yes"
+                   session['username'] = request.form['username']
+                   return ("Login successful " + firstdata + " " + passdata )
+              else:
+                   #return render_template('index.html')
+                   return ("Login failed " + firstdata + " " + passdata )
+        #if request.method == 'POST':
+        #    session['username'] = request.form['username']
+        #    session['password'] = request.form['password']
+        #        if 'username' in session:
+        #            if session['username'] != "" or session['password'] != "":
+        #                session['loggedin'] = "Yes"
+        #                    if (session['username'] in admin.admins):
+        #                        return render_template("/admin/dashboard.html")
+        #                    return render_template('index.html', isLoggedIn=session['username'])
+        #                    if (session['username'] in admin.admins):
+        #                         return render_template("/admin/dashboard.html")
+        #                    return render_template('index.html')
+    else:
+        return render_template('index.html')
 @app.route("/signup", methods=['GET', 'POST'])
 def signup():
      admin.log("[signup connction from]" + admin.getIP())
@@ -64,15 +74,19 @@ def database():
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():
-     return render_template('login.html')
-     admin.checkIfIpBanned(getIP())
-     error = None
+     if request.method == "GET":
+          return render_template('login.html')
+
      if request.method == "POST":
-          if request.form["username"] != "admin" or request.form["password"] != "admin":
-               error = "Invalid cridentials"
-          else:
-               return redirect(url_for("boop"))
-          return render_template("/login.html", error=error)
+          firstdata = request.form["username"]
+          passdata = request.form["password"]
+          if request.form["username"] != "" or request.form["password"] != "":
+               if data.checkLogin(firstdata, passdata) == True:
+                    session['loggedin'] = "Yes"
+                    session['username'] = request.form['username']
+               else:
+                    return render_template('index.html')
+
 @app.route('/admin/', methods=['GET', 'POST'])
 def admin_access():
      username_of_user = session['username']
@@ -99,7 +113,7 @@ def admin_dashboard():
                if session['username'] or session['password']:
                     username = session['username']
                     del session['username']
-                    del session['password']
+                    #del session['password']
                     admin.log("Logging out" + username)
 
                return render_template("/admin/dashboard.html", isLoggingOut=username)

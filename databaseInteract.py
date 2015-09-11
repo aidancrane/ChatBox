@@ -84,7 +84,7 @@ def closedb():
     connection.close()
 
 
-print (checkLogin("admin", "password"))
+#print (checkLogin("admin", "password"))
 #buildDatabase()
 #addUser("Aidan Crane", "aidan573", "aidancrane@gmail.com", "passvert", 1)
 #printData()
