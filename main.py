@@ -30,14 +30,16 @@ def index():
     if request.method == "POST":
          firstdata = request.form["username"]
          passdata = request.form["password"]
-         if request.form["username"] != "" or request.form["password"] != "":
-              if data.checkLogin(firstdata, passdata) == True:
-                   session['loggedin'] = "Yes"
-                   session['username'] = request.form['username']
-                   return ("Login successful " + firstdata + " " + passdata )
-              else:
+         if firstdata == "" or passdata == "":
+             return render_template('index.html', loginfailed="Login Failed!", loginfailedMessage="You need to supply a username and password to login, this can also be your email.")
+         else:
+             if data.checkLogin(firstdata, passdata) == True:
+                 session['loggedin'] = "Yes"
+                 session['username'] = firstdata
+                 return ("Login successful " + firstdata + " " + passdata )
+             else:
                    #return render_template('index.html')
-                   return ("Login failed " + firstdata + " " + passdata )
+                   return render_template('index.html', loginfailed="Login Failed!", loginfailedMessage="The account you supplied does not exsit, or the password specified was incorrect.")
         #if request.method == 'POST':
         #    session['username'] = request.form['username']
         #    session['password'] = request.form['password']
@@ -54,7 +56,7 @@ def index():
         return render_template('index.html')
 @app.route("/signup", methods=['GET', 'POST'])
 def signup():
-     admin.log("[signup connction from]" + admin.getIP())
+     admin.log("[signup connection from]" + admin.getIP())
      if request.method == 'POST':
 
           session['username'] = request.form['username']
@@ -104,22 +106,33 @@ def admin_dashboard():
      if request.method == "GET":
           return render_template("/admin/dashboard.html")
      if request.method == "POST":
-          if request.form['kill'] == 'Stop Server':
+          if request.form['command'] == 'Stop Server':
                admin.shutdown_server()#waits for the last request to be serverd before shutting down
                admin.log("Shutting Down...")
                admin.log("Server Terminated at " + admin.GetTime())
-               return render_template("/admin/dashboard.html", isShuttingDown=admin.GetTime())
-          if request.form['kill'] == 'Log Out':
+               return render_template("/admin/dashboard.html",  redTitle="Alert!", redBody="System Shutting down at " + admin.GetTime())
+          if request.form['command'] == 'Log Out':
                if session['username'] or session['password']:
                     username = session['username']
                     del session['username']
                     #del session['password']
                     admin.log("Logging out" + username)
 
-               return render_template("/admin/dashboard.html", isLoggingOut=username)
+               return render_template("/admin/dashboard.html", YellowTitle="You have been Logged out", YellowBody="To login, click the home button")
 
-               #os._exit(1)
-               # Do things
+          if request.form['command'] == 'Remove User':
+              username_to_delete = request.form['username_to_delete']
+              if username_to_delete == 'admin':
+                  return render_template("/admin/dashboard.html", redTitle="ERROR:", redBody="You cannot delete the 'admin' account.")
+              else:
+                  return render_template("/admin/dashboard.html", redTitle="ERROR", redBody="Functionality Incomplete")
+          if request.form['command'] == 'Ban User':
+              username_to_ban = request.form['username_to_ban']
+              if username_to_ban == 'admin':
+                  return render_template("/admin/dashboard.html", redTitle="ERROR:", redBody="You cannot ban the 'admin' account.")
+              else:
+                  return render_template("/admin/dashboard.html", redTitle="ERROR", redBody="Functionality Incomplete")
+
      return render_template("/admin/dashboard.html")
 if __name__ == "__main__":
     app.run(host='0.0.0.0', port=port, debug=True)#setting debug to false allows for printing to the console

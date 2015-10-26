@@ -36,11 +36,14 @@ def checkLogin(data, password):
     for row in uid:
           data = row
     # Check Password Matches
-    if data[4] == hashPassword(password):
-        return True
-    else:
+    try:
+        if data[4] == hashPassword(password):
+            return True
+        else:
+            return False
+            closedb()
+    except:
         return False
-    closedb()
 
 
 
@@ -50,8 +53,21 @@ def hashPassword(password):
     newHash.update(password.encode("utf-8") + Salt.encode("utf-8"))
     return str(newHash.hexdigest())
 
-def getUser(username):
-    pass
+def getUser(getdata):
+    opendb()
+    #Check Email and Username for 'data'.
+    detail = (getdata, getdata)
+    cursor.execute('SELECT * FROM Users WHERE email = ? OR username = ?', detail)
+    uid = cursor.fetchall()
+    print (uid)
+    for row in uid:
+          data = row
+    # Check Password Matches
+    if data[4] == hashPassword(password):
+        return (uid)
+    else:
+        return False
+    closedb()
 
 def addUser(realName, userName, Email, password, activeEmail):
     opendb()
@@ -71,7 +87,6 @@ def superUser(username):
 
 def delUser(username):
     pass
-
 
 
 def opendb():

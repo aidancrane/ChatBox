@@ -3,18 +3,18 @@
 
 <body>
     <div class="container">
-        {% if isShuttingDown %}
+        {% if redBody %}
         <div class="container">
             <div class="alert alert-danger alert-dismissible fade in" role="alert">
                 <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span></button>
-                <strong>Server Stopped!</strong> {{isShuttingDown}} To restart the server, you will have to manually restart it from the console...
+                <strong>{{redTitle}}</strong> {{redBody}}
             </div>
         </div>
-        {% endif %} {% if isLoggingOut %}
+        {% endif %} {% if YellowBody %}
         <div class="container">
             <div class="alert alert-warning alert-dismissible fade in" role="alert">
                 <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span></button>
-                <strong>You have been logged out!</strong> To login, click the home button.
+                <strong>{{YellowTitle}}</strong> {{YellowBody}}
             </div>
         </div>
         {% endif %}
@@ -33,17 +33,17 @@
         <div style="float: right; width: 50%">
             <form action="/admin/dashboard" method="post">
                 <p style="float: left; width: 25%"><strong>Shut down server?</strong></p>
-                <button style="float: left; width: 25%" class="btn btn-danger" type="submit" name="kill" value="Stop Server">Stop Server :(</button>
+                <button style="float: left; width: 25%" class="btn btn-danger" type="submit" name="command" value="Stop Server">Stop Server :(</button>
             </form>
         </div>
         <p></p>
         {% if session.username %}
         <BR>&nbsp;
-        <BR>
+          <BR>
         <div style="float: right; width: 50%">
             <form action="/admin/dashboard" method="post">
                 <p style="float: left; width: 25%"><strong>LOG OUT?</strong></p>
-                <button style="float: left; width: 25%" class="btn btn-danger" type="submit" name="kill" value="Log Out">Log out :(</button>
+                <button style="float: left; width: 25%" class="btn btn-danger" type="submit" name="command" value="Log Out">Log out :(</button>
             </form>
         </div>
         {% endif %}
@@ -59,16 +59,31 @@
     <div class="container">
         <div style="float: left; width: 30%">
             <form action="/admin/dashboard" method="post">
-                <label><strong>Ban User</strong></label>
+                <label><strong>Delete User</strong></label>
                 <div class="input-group">
                     <span class="input-group-addon" id="ip">Username</span>
-                    <input style="float: left; width: 65%" class="form-control" type="text" name="username_to_ban" id="username" placeholder="Insert Username">
-                    <button style="float: left; width: 35%" class="btn btn-warning" type="submit" name="Username" value="Username">Submit</button>
+                    <input style="float: left; width: 65%" class="form-control" type="text" name="username_to_delete" id="username_to_delete" placeholder="Insert Username">
+                    <button style="float: left; width: 35%" class="btn btn-warning" type="submit" name="command" value="Remove User">Submit</button>
                 </div>
             </form>
         </div>
         <div style="float: left; width: 50%">
-            <p>Boop</p>
+            <p></p>
+        </div>
+    </div>
+    <div class="container">
+        <div style="float: left; width: 30%">
+            <form action="/admin/dashboard" method="post">
+                <label><strong>Ban User</strong></label>
+                <div class="input-group">
+                    <span class="input-group-addon" id="ip">Username</span>
+                    <input style="float: left; width: 65%" class="form-control" type="text" name="username_to_ban" id="username_to_ban" placeholder="Insert Username">
+                    <button style="float: left; width: 35%" class="btn btn-warning" type="submit" name="command" value="Ban User">Submit</button>
+                </div>
+            </form>
+        </div>
+        <div style="float: left; width: 50%">
+            <p></p>
         </div>
     </div>
     <div class="container">
