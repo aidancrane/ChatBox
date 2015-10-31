@@ -2,6 +2,15 @@
 {% include 'header.html' %} {% include 'admin/header.html' %}
 
 <body>
+
+
+  <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu" style="display: block; position: static; margin-bottom: 5px; margin-left: 50px; margin-right: 5px; *width: 180px;">
+                  <li><a tabindex="-1" href="#">Action</a></li>
+                  <li class="disabled"><a tabindex="-1" href="#">Another action</a></li>
+                  <li><a tabindex="-1" href="#">Something else here</a></li>
+                  <li class="divider"></li>
+                  <li><a tabindex="-1" href="#">Separated link</a></li>
+                </ul>
     <div class="container">
         {% if redBody %}
         <div class="container">
@@ -47,15 +56,8 @@
             </form>
         </div>
         {% endif %}
-        <!--
-                close server down
-                ban ips
-                clear chat
-                kick all
-                -->
     </div>
-    <BR>&nbsp;
-    <BR>
+
     <div class="container">
         <div style="float: left; width: 30%">
             <form action="/admin/dashboard" method="post">

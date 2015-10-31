@@ -36,7 +36,7 @@ def index():
              if data.checkLogin(firstdata, passdata) == True:
                  session['loggedin'] = "Yes"
                  session['username'] = firstdata
-                 return ("Login successful " + firstdata + " " + passdata )
+                 return render_template('index.html')
              else:
                    #return render_template('index.html')
                    return render_template('index.html', loginfailed="Login Failed!", loginfailedMessage="The account you supplied does not exsit, or the password specified was incorrect.")
