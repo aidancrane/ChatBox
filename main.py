@@ -1,62 +1,48 @@
 from flask import Flask, render_template, redirect, url_for, request, session, escape, request
-#import flask_sijax
 import os
-app = Flask(__name__)
-app.secret_key = 'boop'
 import sqlite3
-import saveLog
-import databaseInteract
-admin = saveLog
-data = databaseInteract
-port = 5000
-# Behind the scenes stuff #
-import logging
-log = logging.getLogger('werkzeug')#logger for flask
-log.setLevel(logging.INFO)#set that only errors are printted to the console
+
+#
+# Import external files, such as the log and datacontroller
+#
+# logging [log] - Handles all log based activity
+# datacontroller [data] - Handles any database interaction
+#
+import logMaster
+import dataController
+log = logMaster
+data = dataController
+
+# Set application name
+app = Flask(__name__)
+# Set application secret_key and logger
+app.secret_key = 'boop'
 
 
-# End of behind the scenes #
-admin.init_log()
-admin.log("Program Launched")
-admin.config()
-admin.message_log("~Start of message log~")
-admin.log("Loaded config")
-print(admin.getAdmins())
-print(admin.getBannedIp())
-# Front of App #
+
 @app.route("/", methods=['GET', 'POST'])
 def index():
-    admin.log("[index connection from '" + admin.getIP() + "' ]")
     if request.method == "POST":
          firstdata = request.form["username"]
          passdata = request.form["password"]
          if firstdata == "" or passdata == "":
+             log.log("[WARN] A bad password/username combination was used")
              return render_template('index.html', loginfailed="Login Failed!", loginfailedMessage="You need to supply a username and password to login, this can also be your email.")
          else:
              if data.checkLogin(firstdata, passdata) == True:
                  session['loggedin'] = "Yes"
                  session['username'] = firstdata
+                 log.log("[INFO] '" + session['username'] + "' logged in successfully")
                  return render_template('index.html')
              else:
-                   #return render_template('index.html')
                    return render_template('index.html', loginfailed="Login Failed!", loginfailedMessage="The account you supplied does not exsit, or the password specified was incorrect.")
-        #if request.method == 'POST':
-        #    session['username'] = request.form['username']
-        #    session['password'] = request.form['password']
-        #        if 'username' in session:
-        #            if session['username'] != "" or session['password'] != "":
-        #                session['loggedin'] = "Yes"
-        #                    if (session['username'] in admin.admins):
-        #                        return render_template("/admin/dashboard.html")
-        #                    return render_template('index.html', isLoggedIn=session['username'])
-        #                    if (session['username'] in admin.admins):
-        #                         return render_template("/admin/dashboard.html")
-        #                    return render_template('index.html')
+                   log.log("[WARN] A bad password/username combination was used")
     else:
         return render_template('index.html')
+
 @app.route("/signup", methods=['GET', 'POST'])
 def signup():
-     admin.log("[signup connection from]" + admin.getIP())
+
      if request.method == 'POST':
 
           session['username'] = request.form['username']
@@ -97,7 +83,7 @@ def admin_access():
           if (logged_in == "Yes" and username_of_user in admin.admins):
                return render_template("/admin/dashboard.html")
           else:
-               admin.log("Attempted Acess of admin section by a user with the username: " + session['username'])
+
                return render_template("index.html")
      elif request.method == "POST":
           pass
@@ -107,16 +93,13 @@ def admin_dashboard():
           return render_template("/admin/dashboard.html")
      if request.method == "POST":
           if request.form['command'] == 'Stop Server':
-               admin.shutdown_server()#waits for the last request to be serverd before shutting down
-               admin.log("Shutting Down...")
-               admin.log("Server Terminated at " + admin.GetTime())
+               log.log("[INFO] The server was stopped by '" + session['username'] + "'")
+               data.shutdown_server()
                return render_template("/admin/dashboard.html",  redTitle="Alert!", redBody="System Shutting down at " + admin.GetTime())
           if request.form['command'] == 'Log Out':
                if session['username'] or session['password']:
                     username = session['username']
                     del session['username']
-                    #del session['password']
-                    admin.log("Logging out" + username)
 
                return render_template("/admin/dashboard.html", YellowTitle="You have been Logged out", YellowBody="To login, click the home button")
 
@@ -134,5 +117,6 @@ def admin_dashboard():
                   return render_template("/admin/dashboard.html", redTitle="ERROR", redBody="Functionality Incomplete")
 
      return render_template("/admin/dashboard.html")
+
 if __name__ == "__main__":
-    app.run(host='0.0.0.0', port=port, debug=True)#setting debug to false allows for printing to the console
+    app.run(host='0.0.0.0', port=5000, debug=True)#setting debug to false allows for printing to the console

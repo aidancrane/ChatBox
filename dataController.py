@@ -1,6 +1,13 @@
 from flask import request
 import sqlite3
 import hashlib
+'''
+This is where all the Database Interactions happen.
+
+I will write some docs on this soon.
+
+
+'''
 
 '''
 This is where all the Database Interactions happen.
@@ -9,6 +16,12 @@ I will write some docs on this soon.
 
 
 '''
+def shutdown_server():
+    func = request.environ.get('werkzeug.server.shutdown')
+    if func is None:
+        raise RuntimeError('Not running with the Werkzeug Server')
+    func()
+
 def getLastUUID():
     opendb()
     data = cursor.execute('SELECT * FROM Users WHERE UUID = (SELECT MAX(UUID)  FROM Users);')
