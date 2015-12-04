@@ -38,23 +38,34 @@ def index():
                    return render_template('index.html', loginfailed="Login Failed!", loginfailedMessage="The account you supplied does not exsit, or the password specified was incorrect.")
                    log.log("[WARN] A bad password/username combination was used")
     else:
-        return render_template('index.html')
+        return render_template('index.html', head="home")
 
 @app.route("/signup", methods=['GET', 'POST'])
 def signup():
-
-     if request.method == 'POST':
-
-          session['username'] = request.form['username']
-          session['password'] = request.form['password']
-
-          if 'username' in session:
-               if session['username'] != "" or session['password'] != "":
-                    return render_template('index.html', isLoggedIn=session['username'])
-          return render_template('index.html', type="Sign Up")
-
-     else:
+     if request.method == "GET":
           return render_template('signup.html')
+
+     if request.method == "POST":
+         try:
+              realName = request.form["inputRealname"]
+              username = request.form["inputUsername"]
+              email = request.form["inputEmail"]
+              emailVerify = request.form["inputEmailSecond"]
+              password = request.form["password"]
+              passwordVerify = request.form["inputPasswordTwo"]
+
+              if password != passwordVerify:
+                  return render_template("signup.html", head="admin", redTitle="Oh dears", redBody=", It looks like your passwords did not match, please try again")
+              elif email != emailVerify:
+                  return render_template("signup.html", head="admin", redTitle="Ahh", redBody="It looks like your emails don't match one another, please try again")
+              else:
+                 if realName == "" or username == "":
+                    return render_template("signup.html", head="admin", redTitle="This is bad!", redBody="You shouldn't be able to see this, but you left the Name or Screen Name field blank, which is required, so you may have an outdated browser.")
+                 else:
+                    return render_template("signup.html", head="admin", redTitle="Whoo, all is well", redBody="we can start to make your account")
+         except:
+            log.log("[ERROR] Signup POST was failed")
+
 
 @app.route('/database')
 def database():
@@ -75,48 +86,42 @@ def login():
                else:
                     return render_template('index.html')
 
-@app.route('/admin/', methods=['GET', 'POST'])
-def admin_access():
-     username_of_user = session['username']
-     logged_in = session['LoggedIn']
+@app.route('/admin', methods=['GET', 'POST'])
+def admin():
      if request.method == "GET":
-          if (logged_in == "Yes" and username_of_user in admin.admins):
-               return render_template("/admin/dashboard.html")
-          else:
-
-               return render_template("index.html")
-     elif request.method == "POST":
-          pass
-@app.route('/admin/dashboard', methods=['GET', 'POST'])
-def admin_dashboard():
-     if request.method == "GET":
-          return render_template("/admin/dashboard.html")
+          return render_template("/admin/dashboard.html", head="admin")
      if request.method == "POST":
           if request.form['command'] == 'Stop Server':
                log.log("[INFO] The server was stopped by '" + session['username'] + "'")
                data.shutdown_server()
-               return render_template("/admin/dashboard.html",  redTitle="Alert!", redBody="System Shutting down at " + admin.GetTime())
+               return render_template("/admin/dashboard.html", head="admin",  redTitle="Alert!", redBody="System Shutting down at " + admin.GetTime())
           if request.form['command'] == 'Log Out':
                if session['username'] or session['password']:
                     username = session['username']
                     del session['username']
 
-               return render_template("/admin/dashboard.html", YellowTitle="You have been Logged out", YellowBody="To login, click the home button")
+               return render_template("/admin/dashboard.html", head="admin", YellowTitle="You have been Logged out", YellowBody="To login, click the home button")
 
           if request.form['command'] == 'Remove User':
               username_to_delete = request.form['username_to_delete']
               if username_to_delete == 'admin':
-                  return render_template("/admin/dashboard.html", redTitle="ERROR:", redBody="You cannot delete the 'admin' account.")
+                  return render_template("/admin/dashboard.html", head="admin", redTitle="ERROR:", redBody="You cannot delete the 'admin' account.")
               else:
-                  return render_template("/admin/dashboard.html", redTitle="ERROR", redBody="Functionality Incomplete")
+                  return render_template("/admin/dashboard.html", head="admin", redTitle="ERROR", redBody="Functionality Incomplete")
           if request.form['command'] == 'Ban User':
               username_to_ban = request.form['username_to_ban']
               if username_to_ban == 'admin':
-                  return render_template("/admin/dashboard.html", redTitle="ERROR:", redBody="You cannot ban the 'admin' account.")
+                  return render_template("/admin/dashboard.html", head="admin", redTitle="ERROR:", redBody="You cannot ban the 'admin' account.")
               else:
-                  return render_template("/admin/dashboard.html", redTitle="ERROR", redBody="Functionality Incomplete")
+                  return render_template("/admin/dashboard.html", head="admin", redTitle="ERROR", redBody="Functionality Incomplete")
 
      return render_template("/admin/dashboard.html")
+
+@app.route('/chat', methods=['GET', 'POST'])
+def chat():
+     if request.method == "GET":
+          return render_template("chat.html", head="chat")
+
 
 if __name__ == "__main__":
     app.run(host='0.0.0.0', port=5000, debug=True)#setting debug to false allows for printing to the console

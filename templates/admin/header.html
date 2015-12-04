@@ -1,18 +1,4 @@
 {% include 'header.html' %}
-<!--<html>
-    <body>
-        <nav class="navbar navbar-default navbar-static-top">
-            <div class="container">
-                <ul class="nav navbar-nav">
-                    <li><a href="../">Home <span class="sr-only"></span></a></li>
-                    <li><a href="../chat">Chat<span class="sr-only"></span></a></li>
-                    <li><a href="../admin/dashboard">Admin Dashboard (Temp)<span class="sr-only"></span></a></li>
-                </ul>
-            </div>
-        </nav>
-    </body>
-</html>
--->
 <html>
 <body>
     <div class="container-fluid" style="padding-bottom: 2cm">
@@ -28,14 +14,26 @@
 
 				<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
 					<ul class="nav navbar-nav">
+            {% if (head =="home") %}
 						<li class="active">
+            {% else %}
+            <li>
+            {% endif %}
               <a href="../">Home</a>
 						</li>
+            {% if (head =="chat") %}
+						<li class="active">
+            {% else %}
             <li>
+            {% endif %}
               <a href="../chat">Chat</a>
             </li>
+            {% if (head =="admin") %}
+						<li class="active">
+            {% else %}
             <li>
-							<a href="../admin/dashboard">Admin</a>
+            {% endif %}
+							<a href="../admin">Admin</a>
 						</li>
 						<li class="dropdown">
 							 <a href="#" class="dropdown-toggle" data-toggle="dropdown">Dropdown<strong class="caret"></strong></a>
@@ -64,7 +62,7 @@
 					</ul>
 					<ul class="nav navbar-nav navbar-right">
 						<li>
-							<a href="#">Link</a>
+							<a href="/signup">Sign Up</a>
 						</li>
 						<li class="dropdown">
 							 <a href="#" class="dropdown-toggle" data-toggle="dropdown">Dropdown<strong class="caret"></strong></a>
