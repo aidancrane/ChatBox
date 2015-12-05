@@ -18,54 +18,117 @@
         }
         </script>
         <div class="jumbotron">
-            <form class="form-horizontal">
-                <fieldset>
-                    <div id="legend">
-                        <legend class="form-signin-heading">Register</legend>
-                    </div>
-                    <div class="control-group">
-                        <label class="control-label" for="realname">Full Name</label>
-                        <div class="controls">
-                            <input type="text" id="inputRealname" class="form-control" placeholder="Josh" required="" autofocus="">
-                            <p>This is how we will refer to you</p>
-                        </div>
-                    </div>
-                    <div class="control-group">
-                        <label class="control-label" for="username">Username</label>
-                        <div class="controls">
-                            <input type="text" id="inputUsername" class="form-control" placeholder="email@gmail.com" required="" autofocus="">
-                            <p>Username can contain any letters or numbers, without spaces</p>
-                        </div>
-                    </div>
-                    <div class="control-group">
-                        <label class="control-label" for="email">E-mail</label>
-                        <div class="controls">
-                            <input type="email" id="inputEmail" class="form-control" placeholder="Email address" required="" autofocus="">
-                            <p>Please provide your E-mail</p>
-                        </div>
-                    </div>
-                    <div class="control-group">
-                        <label class="control-label" for="password">Password</label>
-                        <div class="controls">
-                            <input type="password " id="inputPassword" class="form-control " placeholder="Password " required=" ">
-                            <p>Password should be at least 4 characters</p>
-                        </div>
-                    </div>
-                    <div class="control-group">
-                        <label class="control-label" for="password_confirm">Confirm Password</label>
-                        <div class="controls">
-                            <input type="password " id="inputPasswordTwo" class="form-control " placeholder="Password " required=" ">
-                            <p>Please confirm password</p>
-                        </div>
-                    </div>
-                    <div class="control-group">
-                        <!-- Button -->
-                        <div class="controls">
-                            <button class="btn btn-lg btn-primary btn-block" onclick="passAndEmail()">Sign up</button>
-                        </div>
-                    </div>
-                </fieldset>
+          {% if redBody %}
+          <div class="container">
+              <div class="alert alert-danger alert-dismissible fade in" role="alert">
+                  <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span></button>
+                  <strong>{{redTitle}}</strong> {{redBody}}
+              </div>
+          </div>
+          {% endif %}
+            <form class="form-horizontal" method="post">
+            <fieldset>
+
+            <!-- Form Name -->
+            <legend>Register</legend>
+
+            <!-- Prepended text-->
+            <div class="form-group">
+              <label class="col-md-4 control-label" for="inputRealname">Your Details</label>
+              <div class="col-md-4">
+                <div class="input-group">
+                  <span class="input-group-addon">Name</span>
+                  <input id="inputRealname" name="inputRealname" class="form-control" placeholder="Josh" type="text" required="" autofocus="">
+                </div>
+
+              </div>
+            </div>
+
+            <!-- Text input-->
+            <div class="form-group">
+              <label class="col-md-4 control-label" for="inputUsername">Screen Name</label>
+              <div class="col-md-4">
+              <input id="inputUsername" name="inputUsername" type="text" placeholder="joshhy99" class="form-control input-md" required="">
+              <span class="help-block">You can change this later</span>
+              </div>
+            </div>
+
+            <!-- Text input-->
+            <div class="form-group">
+              <label class="col-md-4 control-label" for="inputEmail">Email</label>
+              <div class="col-md-4">
+              <input id="inputEmail" name="inputEmail" type="text" placeholder="We will only send emails by your request" class="form-control input-md" required="">
+
+              </div>
+            </div>
+
+            <!-- Text input-->
+            <div class="form-group">
+              <label class="col-md-4 control-label" for="inputEmailSecond">Repeated Email</label>
+              <div class="col-md-4">
+              <input id="inputEmailSecond" name="inputEmailSecond" type="text" placeholder="" class="form-control input-md" required="">
+
+              </div>
+            </div>
+
+            <!-- Multiple Checkboxes -->
+            <div class="form-group">
+              <label class="col-md-4 control-label" for="checkboxes"><!--Email Preferences--></label>
+              <div class="col-md-4">
+                <!--
+              <div class="checkbox">
+                <label for="checkboxes-0">
+                  <input type="checkbox" name="checkboxes" id="checkboxes-0" value="1">
+                  I would like cake
+                </label>
+            	</div>
+              -->
+              </div>
+            </div>
+
+            <!-- Password input-->
+            <div class="form-group">
+              <label class="col-md-4 control-label" for="password">Password</label>
+              <div class="col-md-4">
+                <input id="password" name="password" type="password" placeholder="We would never share your details" class="form-control input-md" required="">
+
+              </div>
+            </div>
+
+            <!-- Password input-->
+            <div class="form-group">
+              <label class="col-md-4 control-label" for="inputPasswordTwo">Repeated Password</label>
+              <div class="col-md-4">
+                <input id="inputPasswordTwo" name="inputPasswordTwo" type="password" placeholder="" class="form-control input-md" required="">
+
+              </div>
+            </div>
+
+            <!-- Button -->
+            <div class="form-group">
+              <label class="col-md-4 control-label" for="singlebutton">Go!</label>
+              <div class="col-md-4">
+                <button id="singlebutton" class="btn btn-primary" name="singlebutton" onclick="passAndEmail()" class="btn btn-primary">Sign up</button>
+              </div>
+            </div>
+
+            </fieldset>
             </form>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
         </div>
     </div>
     </div>
