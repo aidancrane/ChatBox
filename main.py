@@ -65,6 +65,7 @@ def signup():
                     return render_template("signup.html", head="admin", redTitle="Whoo, all is well", redBody="we can start to make your account")
          except:
             log.log("[ERROR] Signup POST was failed")
+            return render_template("signup.html", head="admin", redTitle="Sorry, You cannot make an account at this time", redBody="")
 
 
 @app.route('/database')
