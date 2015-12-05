@@ -28,6 +28,9 @@
             {% endif %}
               <a href="../chat">Chat</a>
             </li>
+
+            {% if session.admin %}
+
             {% if (head =="admin") %}
 						<li class="active">
             {% else %}
@@ -35,6 +38,9 @@
             {% endif %}
 							<a href="../admin">Admin</a>
 						</li>
+
+            {% endif %}
+
 						<li class="dropdown">
 							 <a href="#" class="dropdown-toggle" data-toggle="dropdown">Dropdown<strong class="caret"></strong></a>
 							<ul class="dropdown-menu">
@@ -61,9 +67,15 @@
 						</li>
 					</ul>
 					<ul class="nav navbar-nav navbar-right">
+            {% if session.loggedIn %}
 						<li>
-							<a href="/signup">Sign Up</a>
+                    <a href="/logout">Sign Out</a>
 						</li>
+            {% else %}
+            <li>
+  					       <a href="/signup">Sign Up</a>
+						</li>
+            {% endif %}
 						<li class="dropdown">
 							 <a href="#" class="dropdown-toggle" data-toggle="dropdown">Dropdown<strong class="caret"></strong></a>
 							<ul class="dropdown-menu">

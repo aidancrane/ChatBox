@@ -29,9 +29,14 @@ def index():
              log.log("[WARN] A bad password/username combination was used")
              return render_template('index.html', loginfailed="Login Failed!", loginfailedMessage="You need to supply a username and password to login, this can also be your email.")
          else:
+             # Check that user cridentials match
              if data.checkLogin(firstdata, passdata) == True:
-                 session['loggedin'] = "Yes"
+                 # Create server side cookie
+                 session['loggedIn'] = True
                  session['username'] = firstdata
+                 # Currently No way to determine if user is admin, so they all are
+                 session['admin'] = True
+                 # Log event
                  log.log("[INFO] '" + session['username'] + "' logged in successfully")
                  return render_template('index.html')
              else:
@@ -116,13 +121,20 @@ def admin():
               else:
                   return render_template("/admin/dashboard.html", head="admin", redTitle="ERROR", redBody="Functionality Incomplete")
 
-     return render_template("/admin/dashboard.html")
+     return render_template("/admin/dashboard.html", head="admin")
 
 @app.route('/chat', methods=['GET', 'POST'])
 def chat():
      if request.method == "GET":
           return render_template("chat.html", head="chat")
 
+@app.route('/logout', methods=['GET', 'POST'])
+def logout():
+     if request.method == "GET":
+         username = session['username']
+         session.clear()
+         log.log("[INFO] '" + username + "' logged out successfully")
+         return render_template("index.html", head="home")
 
 if __name__ == "__main__":
     app.run(host='0.0.0.0', port=5000, debug=True)#setting debug to false allows for printing to the console
