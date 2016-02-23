@@ -2,37 +2,36 @@
 {% include 'header.html' %}
 
 <body role="document" style="padding-top: 60px">
-    {% include 'admin/header.html' %}
-    <div class="container theme-showcase" role="main">
-        <p></p>
-        <div class="jumbotron">
-            <div class="container">
+  {% include 'admin/header.html' %}
+  <div class="container theme-showcase" role="main">
+    <p></p>
+    <div class="jumbotron">
+      <div class="container">
 
-              {% if loginfailed %}
-              <div class="container">
-                  <div class="alert alert-danger alert-dismissible fade in" role="alert">
-                      <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span></button>
-                      <strong>{{loginfailed}}</strong> {{loginfailedMessage}}
-                  </div>
-              </div>
-
-              {% endif %}
-                {% if isBanned %}
-                <p>You is banned</p>
-                {% else %} {% if session.username %}
-                <div>
-                    <p> You are logged in as {{session.username}}.</p>
-                </div>
-                {% else %}
-                <div></div>
-                <p> You are not logged in,
-                    <a href="/login">click here to login.</a>
-                </p><a href="/database">Click here</a> to go to the database checker.
-            </div>
-            {% endif %} {% endif %}
+        {% if loginfailed %}
+        <div class="container">
+          <div class="alert alert-danger alert-dismissible fade in" role="alert">
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span></button>
+            <strong>{{loginfailed}}</strong> {{loginfailedMessage}}
+          </div>
         </div>
+
+        {% endif %} {% if isBanned %}
+        <p>You is banned</p>
+        {% else %} {% if session.username %}
+        <div>
+          <p> You are logged in as {{session.username}}.</p>
+        </div>
+        {% else %}
+        <div></div>
+        <p> You are not logged in,
+          <a href="/login">click here to login.</a>
+        </p><a href="/database">Click here</a> to go to the database checker.
+      </div>
+      {% endif %} {% endif %}
     </div>
-    </div>
+  </div>
+  </div>
 </body>
 
 </html>

@@ -5,92 +5,92 @@
 
 
   <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu" style="display: block; position: static; margin-bottom: 5px; margin-left: 50px; margin-right: 5px; *width: 180px;">
-                  <li><a tabindex="-1" href="#">Action</a></li>
-                  <li class="disabled"><a tabindex="-1" href="#">Another action</a></li>
-                  <li><a tabindex="-1" href="#">Something else here</a></li>
-                  <li class="divider"></li>
-                  <li><a tabindex="-1" href="#">Separated link</a></li>
-                </ul>
+    <li><a tabindex="-1" href="#">Action</a></li>
+    <li class="disabled"><a tabindex="-1" href="#">Another action</a></li>
+    <li><a tabindex="-1" href="#">Something else here</a></li>
+    <li class="divider"></li>
+    <li><a tabindex="-1" href="#">Separated link</a></li>
+  </ul>
+  <div class="container">
+    {% if redBody %}
     <div class="container">
-        {% if redBody %}
-        <div class="container">
-            <div class="alert alert-danger alert-dismissible fade in" role="alert">
-                <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span></button>
-                <strong>{{redTitle}}</strong> {{redBody}}
-            </div>
-        </div>
-        {% endif %} {% if YellowBody %}
-        <div class="container">
-            <div class="alert alert-warning alert-dismissible fade in" role="alert">
-                <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span></button>
-                <strong>{{YellowTitle}}</strong> {{YellowBody}}
-            </div>
-        </div>
-        {% endif %}
-        <div style="float: left; width: 30%">
-            <form action="/admin" method="post">
-                <div style="float: left; width: 100%">
-                    <label>Ban an IP Address</label>
-                    <div class="input-group">
-                        <span class="input-group-addon" id="ip">IP</span>
-                        <input style="float: left; width: 75%" class="form-control" type="text" name="ban_ip" id="ban_ip" placeholder="Insert IP Address">
-                        <button style="float: left; width: 25%" class="btn btn-warning" type="submit" name="Ban" value="Ban IP">Submit</button>
-                    </div>
-                </div>
-            </form>
-        </div>
-        <div style="float: right; width: 50%">
-            <form action="/admin" method="post">
-                <p style="float: left; width: 25%"><strong>Shut down server?</strong></p>
-                <button style="float: left; width: 25%" class="btn btn-danger" type="submit" name="command" value="Stop Server">Stop Server :(</button>
-            </form>
-        </div>
-        <p></p>
-        {% if session.username %}
-        <BR>&nbsp;
-          <BR>
-        <div style="float: right; width: 50%">
-            <form action="/admin" method="post">
-                <p style="float: left; width: 25%"><strong>LOG OUT?</strong></p>
-                <button style="float: left; width: 25%" class="btn btn-danger" type="submit" name="command" value="Log Out">Log out :(</button>
-            </form>
-        </div>
-        {% endif %}
+      <div class="alert alert-danger alert-dismissible fade in" role="alert">
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span></button>
+        <strong>{{redTitle}}</strong> {{redBody}}
+      </div>
     </div>
+    {% endif %} {% if YellowBody %}
+    <div class="container">
+      <div class="alert alert-warning alert-dismissible fade in" role="alert">
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span></button>
+        <strong>{{YellowTitle}}</strong> {{YellowBody}}
+      </div>
+    </div>
+    {% endif %}
+    <div style="float: left; width: 30%">
+      <form action="/admin" method="post">
+        <div style="float: left; width: 100%">
+          <label>Ban an IP Address</label>
+          <div class="input-group">
+            <span class="input-group-addon" id="ip">IP</span>
+            <input style="float: left; width: 75%" class="form-control" type="text" name="ban_ip" id="ban_ip" placeholder="Insert IP Address">
+            <button style="float: left; width: 25%" class="btn btn-warning" type="submit" name="Ban" value="Ban IP">Submit</button>
+          </div>
+        </div>
+      </form>
+    </div>
+    <div style="float: right; width: 50%">
+      <form action="/admin" method="post">
+        <p style="float: left; width: 25%"><strong>Shut down server?</strong></p>
+        <button style="float: left; width: 25%" class="btn btn-danger" type="submit" name="command" value="Stop Server">Stop Server :(</button>
+      </form>
+    </div>
+    <p></p>
+    {% if session.username %}
+    <BR>&nbsp;
+    <BR>
+    <div style="float: right; width: 50%">
+      <form action="/admin" method="post">
+        <p style="float: left; width: 25%"><strong>LOG OUT?</strong></p>
+        <button style="float: left; width: 25%" class="btn btn-danger" type="submit" name="command" value="Log Out">Log out :(</button>
+      </form>
+    </div>
+    {% endif %}
+  </div>
 
-    <div class="container">
-        <div style="float: left; width: 30%">
-            <form action="/admin" method="post">
-                <label><strong>Delete User</strong></label>
-                <div class="input-group">
-                    <span class="input-group-addon" id="ip">Username</span>
-                    <input style="float: left; width: 65%" class="form-control" type="text" name="username_to_delete" id="username_to_delete" placeholder="Insert Username">
-                    <button style="float: left; width: 35%" class="btn btn-warning" type="submit" name="command" value="Remove User">Submit</button>
-                </div>
-            </form>
+  <div class="container">
+    <div style="float: left; width: 30%">
+      <form action="/admin" method="post">
+        <label><strong>Delete User</strong></label>
+        <div class="input-group">
+          <span class="input-group-addon" id="ip">Username</span>
+          <input style="float: left; width: 65%" class="form-control" type="text" name="username_to_delete" id="username_to_delete" placeholder="Insert Username">
+          <button style="float: left; width: 35%" class="btn btn-warning" type="submit" name="command" value="Remove User">Submit</button>
         </div>
-        <div style="float: left; width: 50%">
-            <p></p>
-        </div>
+      </form>
     </div>
-    <div class="container">
-        <div style="float: left; width: 30%">
-            <form action="/admin" method="post">
-                <label><strong>Ban User</strong></label>
-                <div class="input-group">
-                    <span class="input-group-addon" id="ip">Username</span>
-                    <input style="float: left; width: 65%" class="form-control" type="text" name="username_to_ban" id="username_to_ban" placeholder="Insert Username">
-                    <button style="float: left; width: 35%" class="btn btn-warning" type="submit" name="command" value="Ban User">Submit</button>
-                </div>
-            </form>
-        </div>
-        <div style="float: left; width: 50%">
-            <p></p>
-        </div>
+    <div style="float: left; width: 50%">
+      <p></p>
     </div>
-    <div class="container" >
-        {{session.username}} {{session.loggedIn}} {{session.admin}}
+  </div>
+  <div class="container">
+    <div style="float: left; width: 30%">
+      <form action="/admin" method="post">
+        <label><strong>Ban User</strong></label>
+        <div class="input-group">
+          <span class="input-group-addon" id="ip">Username</span>
+          <input style="float: left; width: 65%" class="form-control" type="text" name="username_to_ban" id="username_to_ban" placeholder="Insert Username">
+          <button style="float: left; width: 35%" class="btn btn-warning" type="submit" name="command" value="Ban User">Submit</button>
+        </div>
+      </form>
     </div>
+    <div style="float: left; width: 50%">
+      <p></p>
+    </div>
+  </div>
+  <div class="container">
+    {{session.username}} {{session.loggedIn}} {{session.admin}}
+  </div>
 </body>
 
 </html>

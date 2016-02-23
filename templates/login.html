@@ -2,44 +2,45 @@
 {% include 'header.html' %}
 
 <body role="document" style="padding-top: 60px">
-    {% include 'admin/header.html' %}
-    <div class="container theme-showcase" role="main">
-        <p></p>
-        <div class="jumbotron">
-            <div class="container">
+  {% include 'admin/header.html' %}
+  <div class="container theme-showcase" role="main">
+    <p></p>
+    <div class="jumbotron">
+      <div class="container">
 
-                <form class="form-signin" method="POST" action="/">
-                    <h2 class="form-signin-heading">Please sign in</h2>
-                    <div class="row">
-                        <div class="col-lg-6">
-                          <BR>&nbsp;Default is admin, password
-                          </BR>
-                            <div class="input-group">
-                                <span class="input-group-addon" id="usr">Username</span>
-                                <input type="text" class="form-control" placeholder="username" id="username" name="username">
-                            </div>
-                        </div>
-
-                        <div class="col-lg-6">
-                          <BR>&nbsp;
-                          <BR>
-                            <div class="input-group">
-                                <span class="input-group-addon" id="passwd">Password </span>
-                                <input type="password" class="form-control" placeholder="************" id="password" name="password">
-                            </div>
-                        </div>
-                        <BR>&nbsp;
-                        </BR>
-                        <button class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
-                    </div>
-                </form>
-                <div align="center">
-                    <script>
-                        document.write('<a href="' + document.referrer + '">Go Back</a>');
-                    </script>
-                </div>
+        <form class="form-signin" method="POST" action="/">
+          <h2 class="form-signin-heading">Please sign in</h2>
+          <div class="row">
+            <div class="col-lg-6">
+              <BR>&nbsp;Default is admin, password
+              </BR>
+              <div class="input-group">
+                <span class="input-group-addon" id="usr">Username</span>
+                <input type="text" class="form-control" placeholder="username" id="username" name="username">
+              </div>
             </div>
+
+            <div class="col-lg-6">
+              <BR>&nbsp;
+              <BR>
+              <div class="input-group">
+                <span class="input-group-addon" id="passwd">Password </span>
+                <input type="password" class="form-control" placeholder="************" id="password" name="password">
+              </div>
+            </div>
+            <BR>&nbsp;
+            </BR>
+            <button class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
+          </div>
+        </form>
+        <div align="center">
+          <script>
+            document.write('<a href="' + document.referrer + '">Go Back</a>');
+          </script>
         </div>
+      </div>
     </div>
+  </div>
 </body>
+
 </html>
