@@ -1,8 +1,9 @@
 import os
 import sqlite3
 
-from flask import (Flask, escape, redirect, render_template, request, session,
-                   url_for)
+import flask_sijax
+from flask import (Flask, escape, g, redirect, render_template, request,
+                   session, url_for)
 
 import dataController
 #
@@ -110,9 +111,7 @@ def admin():
             data.shutdown_server()
             return render_template("/admin/dashboard.html", head="admin",  redTitle="Alert!", redBody="System Shutting down at " + admin.GetTime())
         if request.form['command'] == 'Log Out':
-            if session['username'] or session['password']:
-                username = session['username']
-                del session['username']
+            return redirect(url_for('logout'))
 
             return render_template("/admin/dashboard.html", head="admin", YellowTitle="You have been Logged out", YellowBody="To login, click the home button")
 
@@ -132,10 +131,18 @@ def admin():
     return render_template("/admin/dashboard.html", head="admin")
 
 
-@app.route('/chat', methods=['GET', 'POST'])
+@flask_sijax.route(app, '/chat', methods=['GET', 'POST'])
 def chat():
     if request.method == "GET":
         return render_template("chat.html", head="chat")
+
+    if request.method == "POST":
+        if request.form['push_message_box']:
+            push_message = request.form['push_message_box']
+            log.log("[INFO] " + session['username'] + " > " + push_message)
+
+            return render_template("chat.html", head="chat")
+    return render_template("chat.html", head="chat")
 
 
 @app.route('/logout', methods=['GET', 'POST'])

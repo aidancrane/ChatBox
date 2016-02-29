@@ -1,37 +1,65 @@
 <html>
-{% include 'header.html' %} {% include 'admin/header.html' %} {% if session.username %}
+  {% include 'header.html' %}
+  {% include 'admin/header.html' %}
+  {% if session.username %}
 
-<body style="padding-top: 2cm">
+    <body style="padding-top: 2cm">
 
-  <div class="container-fluid">
-    <div class="row">
-      <div class="col-md-12">
-        <ul class="nav nav-pills">
-          <li class="active">
-            <a href="#"> <span class="badge pull-right"></span> Currently</a>
-          </li>
-          <li>
-            <a href="#"> <span class="badge pull-right"></span> Under Development</a>
-          </li>
-        </ul>
+      <div class="container-fluid">
+
+        {% if redBody %}
+          <div class="container">
+            <div class="alert alert-danger alert-dismissible fade in" role="alert">
+              <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">×</span>
+              </button>
+              <strong>{{redTitle}}</strong>
+              {{redBody}}
+            </div>
+          </div>
+        {% endif %}
+        {% if YellowBody %}
+          <div class="container">
+            <div class="alert alert-warning alert-dismissible fade in" role="alert">
+              <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">×</span>
+              </button>
+              <strong>{{YellowTitle}}</strong>
+              {{YellowBody}}
+            </div>
+          </div>
+        {% endif %}
+
+        <div class="row">
+          <div class="col-md-12">
+            <ul class="nav nav-pills">
+              <li class="active">
+                <a href="#">
+                  <span class="badge pull-right"></span>misc</a>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="panel-footer">
+      <div class="input-group">
+        <form method="post">
+          <input type="text" class="form-control" name="push_message_box" id="push_message_box" placeholder="{{session.username}}@misc says..." autofocus>
+          <span class="input-group-btn">
+            <button class="btn btn-info" type="submit" name="command">Send</button>
+
+          </form>
+
+        </span>
       </div>
     </div>
   </div>
-  </div>
-  <div class="panel-footer">
-    <div class="input-group">
-      <input type="text" class="form-control" placeholder="Enter Message" />
-      <span class="input-group-btn">
-                                          <button class="btn btn-info" type="button">SEND</button>
-                                      </span>
-    </div>
-  </div>
-  </div>
-  </div>
+</div>
 
-
-  </div>
-  </div> {% endif %}
+</div>
+</div>
+{% endif %}
 </body>
 
 </html>
