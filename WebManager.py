@@ -29,7 +29,7 @@ def index():
         firstdata = request.form["username"]
         passdata = request.form["password"]
         if firstdata == "" or passdata == "":
-            log.log("[WARN] A bad password/username combination was used")
+            log.logWarn("A bad password/username combination was used")
             return render_template('index.html', loginfailed="Login Failed!", loginfailedMessage="You need to supply a username and password to login, this can also be your email.")
         else:
             # Check that user cridentials match
@@ -41,12 +41,12 @@ def index():
                 # are
                 session['admin'] = True
                 # Log event
-                log.log("[INFO] '" + session['username'] +
+                log.logInfo(session['username'] +
                         "' logged in successfully")
                 return render_template('index.html')
             else:
                 return render_template('index.html', loginfailed="Login Failed!", loginfailedMessage="The account you supplied does not exsit, or the password specified was incorrect.")
-                log.log("[WARN] A bad password/username combination was used")
+                log.logWarn("A bad password/username combination was used")
     else:
         return render_template('index.html', head="home")
 
@@ -75,7 +75,7 @@ def signup():
                 else:
                     return render_template("signup.html", head="admin", redTitle="Whoo, all is well", redBody="we can start to make your account")
         except:
-            log.log("[ERROR] Signup POST was failed")
+            log.logError("Signup POST was failed")
             return render_template("signup.html", head="admin", redTitle="Sorry, You cannot make an account at this time", redBody="")
 
 
@@ -102,14 +102,17 @@ def login():
 
 @app.route('/admin', methods=['GET', 'POST'])
 def admin():
-    log.log("Admin Panel Accsessed")
+    log.logWarm("Admin Panel Accsessed")
+    '''
+        Needs to check for autethetification!!
+    '''
     if request.method == "GET":
         return render_template("/admin/dashboard.html", head="admin")
     if request.method == "POST":
         if request.form['command'] == 'Stop Server':
-            log.log("[INFO] The server was stopped by '" +
+            log.logInfo("The server was stopped by '" +
                     session['username'] + "'")
-            data.shutdown_server()
+            shutdown_server()
             return render_template("/admin/dashboard.html", head="admin",  redTitle="Alert!", redBody="System Shutting down at " + admin.GetTime())
         if request.form['command'] == 'Log Out':
             return redirect(url_for('logout'))
@@ -140,7 +143,7 @@ def chat():
     if request.method == "POST":
         if request.form['push_message_box']:
             push_message = request.form['push_message_box']
-            log.log("[INFO] " + session['username'] + " > " + push_message)
+            log.logInfo(session['username'] + " > " + push_message)
 
             return render_template("chat.html", head="chat")
     return render_template("chat.html", head="chat")
@@ -151,8 +154,16 @@ def logout():
     if request.method == "GET":
         username = session['username']
         session.clear()
-        log.log("[INFO] '" + username + "' logged out successfully")
+        log.logInfo("'" + username + "' logged out successfully")
         return render_template("index.html", head="home")
+
+def shutdown_server():
+    func = request.environ.get('werkzeug.server.shutdown')
+    if func is None:
+        raise RuntimeError('Not running with the Werkzeug Server')
+    log.logInfo("Shutting the Server Down")
+    func()
+    log.logInfo("Shut down procedure complete")
 
 def Start(PortNumber):
     app.run(host='0.0.0.0', port=PortNumber, debug=False)
