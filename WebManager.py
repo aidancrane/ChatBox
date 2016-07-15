@@ -102,6 +102,7 @@ def login():
 
 @app.route('/admin', methods=['GET', 'POST'])
 def admin():
+    log.log("Admin Panel Accsessed")
     if request.method == "GET":
         return render_template("/admin/dashboard.html", head="admin")
     if request.method == "POST":
@@ -153,6 +154,5 @@ def logout():
         log.log("[INFO] '" + username + "' logged out successfully")
         return render_template("index.html", head="home")
 
-if __name__ == "__main__":
-    # setting debug to false allows for printing to the console
-    app.run(host='0.0.0.0', port=5000, debug=True)
+def Start(PortNumber):
+    app.run(host='0.0.0.0', port=PortNumber, debug=False)
