@@ -6,9 +6,9 @@ def Start():
     ConfigManager.init()
     logMaster.init()
 
-    logMaster.log("About to Start Chatbox on the port: " +str(ConfigManager.Port))
+    logMaster.logInfo("About to Start Chatbox Server on the port: " +str(ConfigManager.Port))
     WebManager.Start(ConfigManager.Port)
     logMaster.log("Server Closed")
 
-print("Started at: ", logMaster.getTime())
+logMaster.logInfo("Starting ChatBox")
 Start()

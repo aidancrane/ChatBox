@@ -20,11 +20,15 @@ def getPort():
             theport = config.getint("Web Settings", "Port")
             break
         except configparser.NoSectionError:#If the section "web settings" does not exsist it creates it
+            logMaster.logWarn("The Config Section, 'Web Settings', could not be found")
             config.add_section("Web Settings")
             saveConfig(configFileName)
+            logMaster.logInfo("The Config Section, 'Web Settings', has been created")
         except configparser.NoOptionError:#if the option "port" does not exsist, it creates it
+            logMaster.logWarn("The Config Option, 'Port', could not be found")
             config.set("Web Settings", "Port", "8888")
             saveConfig(configFileName)
+            logMaster.logInfo("The Config Option, 'Port', has been created")
     return theport
 
 
