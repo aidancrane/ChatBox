@@ -32,11 +32,11 @@ To Run the server (currently with 'debug=True', which you should never do public
 
 	see above
 
-* Start main.py
+* Start ChatBox.py
 
-	python main.py
+	python ChatBox.py
 
-* You can then browse to [127.0.0.1](http://127.0.0.1/)
+* You can then browse to [127.0.0.1](http://127.0.0.1/)(Along with your respective port, Default: 8888)
 
 In the logfile.log, you should see some logs like so:
 
