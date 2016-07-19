@@ -21,9 +21,14 @@ data = dataController
 app = Flask(__name__)
 # Set application secret_key and logger
 app.secret_key = 'boop'
+flask_sijax.Sijax(app)
+
+app.config["SIJAX_STATIC_PATH"] = os.path.join(
+    '.', os.path.dirname(__file__), 'static/js/sijax.js')
+app.config["SIJAX_JSON_URI"] = '/static/js/json2.js'
 
 
-@app.route("/", methods=['GET', 'POST'])
+@flask_sijax.route(app, "/", methods=['GET', 'POST'])
 def index():
     if request.method == "POST":
         firstdata = request.form["username"]
@@ -42,7 +47,7 @@ def index():
                 session['admin'] = True
                 # Log event
                 log.logInfo(session['username'] +
-                        "' logged in successfully")
+                            "' logged in successfully")
                 return render_template('index.html')
             else:
                 return render_template('index.html', loginfailed="Login Failed!", loginfailedMessage="The account you supplied does not exsit, or the password specified was incorrect.")
@@ -51,7 +56,7 @@ def index():
         return render_template('index.html', head="home")
 
 
-@app.route("/signup", methods=['GET', 'POST'])
+@flask_sijax.route(app, "/signup", methods=['GET', 'POST'])
 def signup():
     if request.method == "GET":
         return render_template('signup.html')
@@ -79,12 +84,12 @@ def signup():
             return render_template("signup.html", head="admin", redTitle="Sorry, You cannot make an account at this time", redBody="")
 
 
-@app.route('/database')
+@flask_sijax.route(app, '/database')
 def database():
     return (str(data.checkLogin("admin", "password")))
 
 
-@app.route('/login', methods=['GET', 'POST'])
+@flask_sijax.route(app, '/login', methods=['GET', 'POST'])
 def login():
     if request.method == "GET":
         return render_template('login.html')
@@ -100,7 +105,7 @@ def login():
                 return render_template('index.html')
 
 
-@app.route('/admin', methods=['GET', 'POST'])
+@flask_sijax.route(app, '/admin', methods=['GET', 'POST'])
 def admin():
     log.logWarm("Admin Panel Accsessed")
     '''
@@ -111,7 +116,7 @@ def admin():
     if request.method == "POST":
         if request.form['command'] == 'Stop Server':
             log.logInfo("The server was stopped by '" +
-                    session['username'] + "'")
+                        session['username'] + "'")
             shutdown_server()
             return render_template("/admin/dashboard.html", head="admin",  redTitle="Alert!", redBody="System Shutting down at " + admin.GetTime())
         if request.form['command'] == 'Log Out':
@@ -149,13 +154,14 @@ def chat():
     return render_template("chat.html", head="chat")
 
 
-@app.route('/logout', methods=['GET', 'POST'])
+@flask_sijax.route(app, '/logout', methods=['GET', 'POST'])
 def logout():
     if request.method == "GET":
         username = session['username']
         session.clear()
         log.logInfo("'" + username + "' logged out successfully")
         return render_template("index.html", head="home")
+
 
 def shutdown_server():
     func = request.environ.get('werkzeug.server.shutdown')
@@ -164,6 +170,7 @@ def shutdown_server():
     log.logInfo("Shutting the Server Down")
     func()
     log.logInfo("Shut down procedure complete")
+
 
 def Start(PortNumber):
     app.run(host='0.0.0.0', port=PortNumber, debug=False)
