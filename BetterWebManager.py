@@ -10,20 +10,18 @@ from flask import (Flask, escape, g, redirect, render_template, request,
                    session, url_for)
 
 import ConfigManager
-import dataController
+import dataController as data
 #
 # Import external files, such as the log and datacontroller
 #
 # logging [log] - Handles all log based activity
 # datacontroller [data] - Handles any database interaction
 #
-import logMaster
+import logMaster as log
 
 flasklogger = logging.getLogger('werkzeug')
 flasklogger.setLevel(logging.ERROR)
 
-log = logMaster
-data = dataController
 
 # Set application name
 app = Flask(__name__)
@@ -77,7 +75,30 @@ def signup():
     if 'loggedIn' in session:
         return redirect("/")
     else:
-        return render_template('signup.html')
+        def create_account(obj_response,
+                           firstnameinput,
+                           lastnameinput,
+                           friendlynameinput,
+                           usernameinput,
+                           emailinput,
+                           repeatemailinput,
+                           password,
+                           repeatedpassword,
+                           genderDropdown):
+
+            if (data.checkIfUserTaken(usernameinput) == True):
+                obj_response.script('account_already_taken()')
+            else:
+                if (firstnameinput == "" or lastnameinput == ""):
+                    obj_response.script('account_already_taken()')
+                else:
+                    print("good")
+
+    if g.sijax.is_sijax_request:
+        # Sijax request detected - let Sijax handle it
+        g.sijax.register_callback('create_account', create_account)
+        return g.sijax.process_request()
+    return render_template('signup.html')
 
 
 @flask_sijax.route(app, "/test")

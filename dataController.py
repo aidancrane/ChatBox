@@ -83,6 +83,25 @@ def checkHashedPassword(username, password):  # Updated July 20 2016
     return (str(newHash.hexdigest()))
 
 
+def checkIfUserTaken(username):  # Updated July 20 2016
+    opendb()
+    # get user salt
+    detail = (username, username)
+    cursor.execute(
+        'SELECT * FROM Users WHERE email = ? OR username = ?', detail)
+    uid = cursor.fetchall()
+    for row in uid:
+        data = row
+    # Check Password Matches
+    # print(data)
+    if str(uid) == "[]":
+        # Username not taken
+        return False
+    else:
+        # taken
+        return True
+
+
 def userDataPassback(username):  # Updated July 20 2016
     opendb()
     # get user salt

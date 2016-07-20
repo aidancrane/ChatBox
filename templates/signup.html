@@ -1,6 +1,7 @@
 <html>
   <head>
     {% include 'stylesheets.html' %}
+    <script type="text/javascript" src="/static/js/functions/newaccount.js"></script>
   </head>
   <body>
     {% include 'navbars/signup/indexbar.html' %}
@@ -18,42 +19,53 @@
                         <h1>Register</h1>
                       </div>
                     </div>
-                    <form role="form">
-                      <div class="form-group">
+                    <div role="form">
+                      <div class="form-group" id="firstlastnameinputgrp">
 
                         <div class="row">
                           <div class="col-lg-6">
                             <label class="control-label" for="exampleInputEmail1">First Name</label>
-                            <div class="form-group"><input class="form-control" id="exampleInputEmail1" placeholder="Dave" type="text"></div>
+                            <div class="form-group"><input class="form-control" id="firstnameinput" placeholder="Dave" type="text"></div>
                           </div>
                           <div class="col-lg-6">
                             <label class="control-label" for="exampleInputEmail2">Last Name</label>
-                            <div class="form-group"><input class="form-control" id="exampleInputEmail1" placeholder="Jones" type="text"></div>
+                            <div class="form-group"><input class="form-control" id="lastnameinput" placeholder="Jones" type="text"></div>
                           </div>
                         </div>
                       </div>
-                      <div class="form-group">
-                        <label class="control-label" for="exampleInputEmail1">Friendly Name</label><input class="form-control" id="exampleInputEmail1" placeholder="What should we call you by?" type="text"></div>
-                      <div class="form-group">
-                        <label class="control-label" for="exampleInputPassword1">Screen Name</label><input class="form-control" id="exampleInputPassword1" placeholder="What would you like your username to be?" type="text"></div>
-                      <div class="form-group">
-                        <label class="control-label">Email<br></label><input class="form-control" type="email" placeholder="We won't send you spam"></div>
-                      <div class="form-group">
-                        <label class="control-label">Repeated Email<br></label><input class="form-control" type="text"></div>
-                      <div class="form-group">
-                        <label class="control-label">Password<br></label><input class="form-control" type="password" placeholder="Make sure to choose a really hard one!"></div>
-                      <div class="form-group">
-                        <label class="control-label">Repeated Password<br></label><input class="form-control" type="password"></div>
-                      <div class="form-group">
+                      <div class="form-group" id="friendlynameinputgrp">
+                        <label class="control-label" for="exampleInputEmail1">What should we call you?</label><input class="form-control" id="friendlynameinput" placeholder="This is how we will address you." type="text"></div>
+                      <div class="form-group" id="usernameinputgrp">
+                        <label class="control-label" for="exampleInputPassword1">What would you like your Username to be?</label><input class="form-control" id="usernameinput" placeholder="This has to be unique!" type="text"></div>
+                      <div class="form-group" id="emailinputgrp">
+                        <label class="control-label">Email<br></label><input class="form-control" type="email" id="emailinput" placeholder="We won't send you spam"></div>
+                      <div class="form-group" id="repeatemailinputgrp">
+                        <label class="control-label">Repeated Email<br></label><input class="form-control" id="repeatemailinput" type="email"></div>
+                      <div class="form-group" id="passwordgrp">
+                        <label class="control-label">Password<br></label><input class="form-control" id="password" type="password" placeholder="Make sure to choose a really hard one!"></div>
+                      <div class="form-group" id="repeatedpasswordgrp">
+                        <label class="control-label">Repeated Password<br></label><input class="form-control" id="repeatedpassword" type="password"></div>
+                      <div class="form-group" id="genderDropdowngrp">
                         <label class="control-label">Gender<br></label>
-                        <select class="form-control">
-                          <option>I'd prefer not to say</option>
+                        <select class="form-control" id="genderDropdown">
+                          <option>Id prefer not to say</option>
                           <option>Male</option>
                           <option>Female</option>
                         </select>
                       </div>
-                      <button type="submit" class="btn btn-success">Make Account</button>
-                    </form>
+                      <button
+                        onclick="Sijax.request('create_account', [$('#firstnameinput').val(),
+                      $('#lastnameinput').val(),
+                      $('#friendlynameinput').val(),
+                      $('#usernameinput').val(),
+                      $('#emailinput').val(),
+                      $('#repeatemailinput').val(),
+                      $('#password').val(),
+                      $('#repeatedpassword').val(),
+                      $('#genderDropdown').val()]);"
+                        class="btn btn-success">Make Account</button>
+                      <div id="feedback_error"></div>
+                    </div>
                   </div>
                 </div>
               </div>
@@ -62,47 +74,6 @@
         </div>
       </div>
     </div>
-
-    <!--    <div class="container theme-showcase" role="main">
-      <p></p>
-      <div class="jumbotron">
-        <div class="container">
-
-          <form class="form-signin" method="POST" action="/">
-            <h2 class="form-signin-heading">Please sign in</h2>
-            <div class="row">
-              <div class="col-lg-6">
-                <BR>&nbsp;Default is admin, password
-                </BR>
-                <div class="input-group">
-                  <span class="input-group-addon" id="usr">Username</span>
-                  <input type="text" class="form-control" placeholder="username" id="username" name="username">
-                </div>
-              </div>
-
-              <div class="col-lg-6">
-                <BR>&nbsp;
-                <BR>
-                <div class="input-group">
-                  <span class="input-group-addon" id="passwd">Password
-                  </span>
-                  <input type="password" class="form-control" placeholder="************" id="password" name="password">
-                </div>
-              </div>
-              <BR>&nbsp;
-              </BR>
-              <button class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
-            </div>
-          </form>
-          <div align="center">
-            <script>
-              document.write('<a href="' + document.referrer + '">Go Back</a>');
-            </script>
-          </div>
-        </div>
-      </div>
-    </div>
-    -->
   </body>
 
 </html>
