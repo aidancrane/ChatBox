@@ -1,6 +1,6 @@
+import BetterWebManager as WebManager
 import ConfigManager
 import logMaster
-import WebManager
 
 
 def Start():

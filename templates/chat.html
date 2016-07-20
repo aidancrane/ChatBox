@@ -1,65 +1,30 @@
 <html>
-  {% include 'header.html' %}
-  {% include 'admin/header.html' %}
-  {% if session.username %}
-
-    <body style="padding-top: 2cm">
-
-      <div class="container-fluid">
-
-        {% if redBody %}
-          <div class="container">
-            <div class="alert alert-danger alert-dismissible fade in" role="alert">
-              <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                <span aria-hidden="true">×</span>
-              </button>
-              <strong>{{redTitle}}</strong>
-              {{redBody}}
-            </div>
-          </div>
-        {% endif %}
-        {% if YellowBody %}
-          <div class="container">
-            <div class="alert alert-warning alert-dismissible fade in" role="alert">
-              <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                <span aria-hidden="true">×</span>
-              </button>
-              <strong>{{YellowTitle}}</strong>
-              {{YellowBody}}
-            </div>
-          </div>
-        {% endif %}
-
-        <div class="row">
-          <div class="col-md-12">
-            <ul class="nav nav-pills">
-              <li class="active">
-                <a href="#">
-                  <span class="badge pull-right"></span>misc</a>
-              </li>
-            </ul>
-          </div>
-        </div>
-      </div>
-    </div>
-    <div class="panel-footer">
-      <div class="input-group">
-        <form method="post">
-          <input type="text" class="form-control" name="push_message_box" id="push_message_box" placeholder="{{session.username}}@misc says..." autofocus>
+  <head>
+    {% include 'stylesheets.html' %}
+  </head>
+  <body>
+    {% include 'navbars/indexbar/indexbar.html' %}
+    <div class="navbar-padding-to-nearmid">
+      <script>
+        $(document).ready(function () {
+          $('#chat-box').keypress(function (e) {
+            if (e.keyCode == 13) 
+              $('#submit-button').click();
+            }
+          );
+        });
+      </script>
+      <p>fsdfsdfsdfsdf</p>
+      <form>
+        <div class="input-group">
           <span class="input-group-btn">
-            <button class="btn btn-info" type="submit" name="command">Send</button>
-
-          </form>
-
-        </span>
-      </div>
+            <button class="btn btn-primary" id="submit-button" type="button">$</button>
+          </span>
+          <input type="text" class="form-control" id="chat-box" placeholder="Search for...">
+        </div>
+      </form>
     </div>
-  </div>
-</div>
 
-</div>
-</div>
-{% endif %}
-</body>
+  </body>
 
 </html>

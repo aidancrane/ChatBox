@@ -1,0 +1,24 @@
+.navbar-padding {
+  padding: 3rem 1.7rem;
+  text-align: left;
+}
+.pad-right-navbar {
+  padding-right: 1.7rem;
+}
+.center-align-main {
+  float: none;
+  display: inline-block;
+  vertical-align: middle;
+}
+.navbar-padding-to-nearcenter {
+  padding: 20rem 1.7rem;
+  text-align: left;
+}
+.navbar-padding-to-nearmid {
+  padding: 10rem 1.7rem;
+  text-align: left;
+}
+.login-other {
+  padding-top: 20px;
+  font-weight: 400;
+}

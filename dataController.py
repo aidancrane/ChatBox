@@ -1,5 +1,7 @@
 import hashlib
 import sqlite3
+from random import choice
+from string import ascii_lowercase
 
 from flask import request
 
@@ -20,41 +22,42 @@ I will write some docs on this soon.
 
 '''
 
-def getLastUUID():
-    opendb()
-    data = cursor.execute(
-        'SELECT * FROM Users WHERE UUID = (SELECT MAX(UUID)  FROM Users);')
-    uid = cursor.fetchall()
-    for row in uid:
-        data = row
-    return int(data[0])
-    closedb()
 
-
-def buildDatabase():
+def buildDatabase():  # Updated July 20 2016
+    #
+    # Open Database
+    #
     opendb()
+    #
+    # Add Tables with columbs
+    #
+    cursor.execute('CREATE TABLE `users` (`UUID`	TEXT,`apikey`	TEXT,`firstname`	TEXT,`lastname`	INTEGER,`friendlyname`	TEXT,`username`	TEXT,`email`	TEXT,`hashedpassword`	TEXT,`usersalt`	TEXT);')
+    #
+    # Generate UUID
+    #
+    UUID = (''.join(choice(ascii_lowercase) for i in range(64)))
+    apikey = (''.join(choice(ascii_lowercase) for i in range(64)))
+    # Hashed password with static salt, its 'password'
+    password = ('982b950c0e958a2c98ee2ae9f53bff3c01586453')
+    combo = UUID, apikey, password, 'bwfwxd'
     cursor.execute(
-        'CREATE TABLE Users ( UUID NUMERIC, username TEXT, realname TEXT, email TEXT, password TEXT, active NUMERIC, PRIMARY KEY(UUID));')
-    detail = (hashPassword("password"), 1)
-    cursor.execute(
-        "INSERT INTO Users VALUES(1,'admin','admin','admin@localhost',? ,? )", detail)
+        "INSERT INTO users VALUES(?,?,'admin','admin','Administrator','admin','admin@localhost',? ,?)", combo)
     connection.commit()
     closedb()
 
 
-def checkLogin(data, password):
+def checkLogin(userdata, password):  # Updated July 20 2016
     opendb()
     # Check Email and Username for 'data'.
-    detail = (data, data)
+    detail = (userdata, userdata)
     cursor.execute(
         'SELECT * FROM Users WHERE email = ? OR username = ?', detail)
     uid = cursor.fetchall()
-    print(uid)
     for row in uid:
         data = row
     # Check Password Matches
     try:
-        if data[4] == hashPassword(password):
+        if data[7] == checkHashedPassword(userdata, password):
             return True
         else:
             return False
@@ -63,29 +66,21 @@ def checkLogin(data, password):
         return False
 
 
-def hashPassword(password):
-    Salt = "fishes"
-    newHash = hashlib.sha1()
-    newHash.update(password.encode("utf-8") + Salt.encode("utf-8"))
-    return str(newHash.hexdigest())
-
-
-def getUser(getdata):
+def checkHashedPassword(username, password):  # Updated July 20 2016
     opendb()
-    # Check Email and Username for 'data'.
-    detail = (getdata, getdata)
+    # get user salt
+    detail = (username, username)
     cursor.execute(
         'SELECT * FROM Users WHERE email = ? OR username = ?', detail)
     uid = cursor.fetchall()
-    print(uid)
     for row in uid:
         data = row
     # Check Password Matches
-    if data[4] == hashPassword(password):
-        return (uid)
-    else:
-        return False
-    closedb()
+    print(data)
+    Salt = data[8]
+    newHash = hashlib.sha1()
+    newHash.update(password.encode("utf-8") + Salt.encode("utf-8"))
+    return (str(newHash.hexdigest()))
 
 
 def addUser(realName, userName, Email, password, activeEmail):
@@ -115,7 +110,7 @@ def delUser(username):
 
 def opendb():
     global connection, cursor, connection
-    connection = sqlite3.connect("users.db")
+    connection = sqlite3.connect("databases/user_data/users.db")
     cursor = connection.cursor()
     connection.commit()
 
@@ -124,8 +119,10 @@ def closedb():
     cursor.close()
     connection.close()
 
-
 #print (checkLogin("admin", "password"))
 # buildDatabase()
 #addUser("Aidan Crane", "aidan573", "aidancrane@gmail.com", "passvert", 1)
 # printData()
+# buildDatabase()
+#print(checkLogin('admin@localhost', 'password'))
+#print(checkHashedPassword('admin', 'passwolrd'))

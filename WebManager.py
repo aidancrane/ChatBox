@@ -142,6 +142,12 @@ def admin():
 
 @flask_sijax.route(app, '/chat', methods=['GET', 'POST'])
 def chat():
+    def say_something(obj_response):
+        # obj_response.alert('Hi there!')
+        obj_response.html(
+            '#talk', '<i class="fa fa-circle-o-notch fa-spin fa-fw"></i>Loading...')
+
+        print("Hello :)")
     if request.method == "GET":
         return render_template("chat.html", head="chat")
 
@@ -151,6 +157,10 @@ def chat():
             log.logInfo(session['username'] + " > " + push_message)
 
             return render_template("chat.html", head="chat")
+    if g.sijax.is_sijax_request:
+        # Sijax request detected - let Sijax handle it
+        g.sijax.register_callback('say_something', say_something)
+        return g.sijax.process_request()
     return render_template("chat.html", head="chat")
 
 
