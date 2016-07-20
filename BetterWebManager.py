@@ -1,3 +1,7 @@
+#
+# Disable flask's logger
+#
+import logging
 import os
 import sqlite3
 
@@ -5,6 +9,7 @@ import flask_sijax
 from flask import (Flask, escape, g, redirect, render_template, request,
                    session, url_for)
 
+import ConfigManager
 import dataController
 #
 # Import external files, such as the log and datacontroller
@@ -13,6 +18,9 @@ import dataController
 # datacontroller [data] - Handles any database interaction
 #
 import logMaster
+
+flasklogger = logging.getLogger('werkzeug')
+flasklogger.setLevel(logging.ERROR)
 
 log = logMaster
 data = dataController
@@ -30,15 +38,32 @@ app.config["SIJAX_JSON_URI"] = '/static/js/json2.js'
 
 @flask_sijax.route(app, "/")
 def index():
-    return render_template('index.html')
+    if 'loggedIn' in session:
+        return redirect("/dashboard")
+    else:
+        return render_template('index.html')
 
 
 @flask_sijax.route(app, "/login")
 def login():
-    def check_loginbox(obj_response, userdata, password):
-        if (data.checkLogin(userdata, password) == True):
-            log.log('Worked')
-        obj_response.script('login_error()')
+    if 'loggedIn' in session:
+        return redirect("/dashboard")
+    else:
+        def check_loginbox(obj_response, userdata, password):
+            if (data.checkLogin(userdata, password) == True):
+                populateData = data.userDataPassback(userdata)
+                session['userapikey'] = populateData[0]
+                session['firstname'] = populateData[1]
+                session['lastname'] = populateData[2]
+                session['friendlyname'] = populateData[3]
+                session['username'] = populateData[4]
+                session['emailaddress'] = populateData[5]
+                session['loggedIn'] = True
+                log.logInfo(
+                    "The user '" + populateData[4] + "' logged in via /login and was given user session data")
+                obj_response.script('login_success()')
+            else:
+                obj_response.script('login_error()')
 
     if g.sijax.is_sijax_request:
         # Sijax request detected - let Sijax handle it
@@ -49,7 +74,10 @@ def login():
 
 @flask_sijax.route(app, "/signup")
 def signup():
-    return render_template('signup.html')
+    if 'loggedIn' in session:
+        return redirect("/")
+    else:
+        return render_template('signup.html')
 
 
 @flask_sijax.route(app, "/test")
@@ -59,7 +87,29 @@ def test():
 
 @flask_sijax.route(app, "/chat")
 def chat():
-    return render_template('chat.html')
+    if 'loggedIn' in session:
+        return render_template('chat.html')
+    else:
+        return redirect("/")
+
+
+@flask_sijax.route(app, "/dashboard")
+def dashboard():
+    if 'loggedIn' in session:
+        return render_template('test.html')
+    else:
+        return redirect("/")
+
+
+@flask_sijax.route(app, '/logout')
+def logout():
+    if 'loggedIn' in session:
+        username = session['username']
+        session.clear()
+        log.logInfo("'" + username + "' logged out via /logout")
+        return ("Logged out successfully")
+    else:
+        return ("You are not logged in silly")
 
 
 def shutdown_server():
@@ -76,4 +126,4 @@ def shutdown():
 
 
 def Start(PortNumber):
-    app.run(host='0.0.0.0', port=PortNumber, debug=False)
+    app.run(host='0.0.0.0', port=ConfigManager.Port, debug=False)

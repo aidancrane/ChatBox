@@ -8,11 +8,19 @@
         <a href="/chat">Chat</a>
       </li>
     </ul>
-
     <ul class="nav navbar-nav navbar-right pad-right-navbar">
-      <li>
-        <a href="/login">Login</a>
-      </li>
+      {% if session.loggedIn %}
+        <li>
+          <a href="/profile">{{session.friendlyname}}</a>
+        </li>
+        <li>
+          <a href="/logout">Logout</a>
+        </li>
+      {% else %}
+        <li>
+          <a href="/login">Login</a>
+        </li>
+      {% endif %}
     </ul>
 
   </div>

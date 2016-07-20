@@ -76,11 +76,28 @@ def checkHashedPassword(username, password):  # Updated July 20 2016
     for row in uid:
         data = row
     # Check Password Matches
-    print(data)
+    # print(data)
     Salt = data[8]
     newHash = hashlib.sha1()
     newHash.update(password.encode("utf-8") + Salt.encode("utf-8"))
     return (str(newHash.hexdigest()))
+
+
+def userDataPassback(username):  # Updated July 20 2016
+    opendb()
+    # get user salt
+    detail = (username, username)
+    cursor.execute(
+        'SELECT * FROM Users WHERE email = ? OR username = ?', detail)
+    uid = cursor.fetchall()
+    for row in uid:
+        data = row
+    data = list(data)
+    # Remove sensitive information
+    data.pop(0)
+    data.pop(7)
+    data.pop(6)
+    return (data)
 
 
 def addUser(realName, userName, Email, password, activeEmail):
@@ -124,5 +141,4 @@ def closedb():
 #addUser("Aidan Crane", "aidan573", "aidancrane@gmail.com", "passvert", 1)
 # printData()
 # buildDatabase()
-#print(checkLogin('admin@localhost', 'password'))
 #print(checkHashedPassword('admin', 'passwolrd'))
