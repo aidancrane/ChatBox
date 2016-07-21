@@ -119,11 +119,18 @@ def userDataPassback(username):  # Updated July 20 2016
     return (data)
 
 
-def addUser(realName, userName, Email, password, activeEmail):
+def addUser(firstname, lastname, friendlyname, username, email, password):  # Updated July 21 2016
+    #     cursor.execute('CREATE TABLE `users` (`UUID`	TEXT,`apikey`	TEXT,`firstname`	TEXT,`lastname`	INTEGER,`friendlyname`	TEXT,`username`	TEXT,`email`	TEXT,`hashedpassword`	TEXT,`usersalt`	TEXT);')
     opendb()
-    detail = (getLastUUID() + 1, userName, realName,
-              Email, hashPassword(password), activeEmail)
-    cursor.execute("INSERT INTO Users VALUES(?, ?, ?, ?, ?, ?)", detail)
+    UUID = (''.join(choice(ascii_lowercase) for i in range(64)))
+    apikey = (''.join(choice(ascii_lowercase) for i in range(64)))
+    usersalt = (''.join(choice(ascii_lowercase) for i in range(6)))
+    newHash = hashlib.sha1()
+    newHash.update(password.encode("utf-8") + usersalt.encode("utf-8"))
+    hashedpassword = str(newHash.hexdigest())
+    combo = UUID, apikey, firstname, lastname, friendlyname, username, email, hashedpassword, usersalt
+    cursor.execute(
+        "INSERT INTO users VALUES(?,?,?,?,?,?,?,?,?)", combo)
     connection.commit()
     closedb()
 

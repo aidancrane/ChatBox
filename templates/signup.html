@@ -1,60 +1,88 @@
 <html>
-  <head>
+
+<head>
     {% include 'stylesheets.html' %}
     <script type="text/javascript" src="/static/js/functions/newaccount.js"></script>
-  </head>
-  <body>
+</head>
+
+<body>
     {% include 'navbars/signup/indexbar.html' %}
     <div class="container navbar-padding-to-nearmid">
-      <div class="row">
-        <div class="col-md-3"><img src="http://pingendo.github.io/pingendo-bootstrap/assets/placeholder.png" class="img-responsive"></div>
-        <div class="col-md-9">
-          <div class="section">
-            <div class="container">
-              <div class="row">
-                <div class="col-md-9">
-                  <div class="section">
+        <div class="row">
+            <div class="col-md-3"><img src="http://pingendo.github.io/pingendo-bootstrap/assets/placeholder.png" class="img-responsive"></div>
+            <div class="col-md-9">
+                <div class="section">
                     <div class="container">
-                      <div class="row">
-                        <h1>Register</h1>
-                      </div>
-                    </div>
-                    <div role="form">
-                      <div class="form-group" id="firstlastnameinputgrp">
-
                         <div class="row">
-                          <div class="col-lg-6">
-                            <label class="control-label" for="exampleInputEmail1">First Name</label>
-                            <div class="form-group"><input class="form-control" id="firstnameinput" placeholder="Dave" type="text"></div>
-                          </div>
-                          <div class="col-lg-6">
-                            <label class="control-label" for="exampleInputEmail2">Last Name</label>
-                            <div class="form-group"><input class="form-control" id="lastnameinput" placeholder="Jones" type="text"></div>
-                          </div>
-                        </div>
-                      </div>
-                      <div class="form-group" id="friendlynameinputgrp">
-                        <label class="control-label" for="exampleInputEmail1">What should we call you?</label><input class="form-control" id="friendlynameinput" placeholder="This is how we will address you." type="text"></div>
-                      <div class="form-group" id="usernameinputgrp">
-                        <label class="control-label" for="exampleInputPassword1">What would you like your Username to be?</label><input class="form-control" id="usernameinput" placeholder="This has to be unique!" type="text"></div>
-                      <div class="form-group" id="emailinputgrp">
-                        <label class="control-label">Email<br></label><input class="form-control" type="email" id="emailinput" placeholder="We won't send you spam"></div>
-                      <div class="form-group" id="repeatemailinputgrp">
-                        <label class="control-label">Repeated Email<br></label><input class="form-control" id="repeatemailinput" type="email"></div>
-                      <div class="form-group" id="passwordgrp">
-                        <label class="control-label">Password<br></label><input class="form-control" id="password" type="password" placeholder="Make sure to choose a really hard one!"></div>
-                      <div class="form-group" id="repeatedpasswordgrp">
-                        <label class="control-label">Repeated Password<br></label><input class="form-control" id="repeatedpassword" type="password"></div>
-                      <div class="form-group" id="genderDropdowngrp">
-                        <label class="control-label">Gender<br></label>
-                        <select class="form-control" id="genderDropdown">
-                          <option>Id prefer not to say</option>
-                          <option>Male</option>
-                          <option>Female</option>
-                        </select>
-                      </div>
-                      <button
-                        onclick="Sijax.request('create_account', [$('#firstnameinput').val(),
+                            <div class="col-md-9">
+                                <div class="section">
+                                    <div class="container">
+                                        <div class="row">
+                                            <h1>Register</h1>
+                                        </div>
+                                    </div>
+                                    <div role="form">
+                                        <div class="form-group" id="firstlastnameinputgrp">
+
+                                            <div class="row">
+                                                <div class="col-lg-6">
+                                                    <label class="control-label" for="exampleInputEmail1">First Name</label>
+                                                    <div class="form-group">
+                                                        <input class="form-control" id="firstnameinput" placeholder="Dave" type="text">
+                                                    </div>
+                                                </div>
+                                                <div class="col-lg-6">
+                                                    <label class="control-label" for="exampleInputEmail2">Last Name</label>
+                                                    <div class="form-group">
+                                                        <input class="form-control" id="lastnameinput" placeholder="Jones" type="text">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="form-group" id="friendlynameinputgrp">
+                                            <label class="control-label" for="exampleInputEmail1">What should we call you?</label>
+                                            <input class="form-control" id="friendlynameinput" placeholder="This is how we will address you." type="text">
+                                        </div>
+                                        <div class="form-group" id="usernameinputgrp">
+                                            <label class="control-label" for="exampleInputPassword1">What would you like your Username to be?</label>
+                                            <input class="form-control" id="usernameinput" placeholder="This has to be unique!" type="text">
+                                        </div>
+                                        <div class="form-group" id="emailinputgrp">
+                                            <label class="control-label">Email
+                                                <br>
+                                            </label>
+                                            <input class="form-control" type="email" id="emailinput" placeholder="We won't send you spam">
+                                        </div>
+                                        <div class="form-group" id="repeatemailinputgrp">
+                                            <label class="control-label">Repeated Email
+                                                <br>
+                                            </label>
+                                            <input class="form-control" id="repeatemailinput" type="email">
+                                        </div>
+                                        <div class="form-group" id="passwordgrp">
+                                            <label class="control-label">Password
+                                                <br>
+                                            </label>
+                                            <input class="form-control" id="password" type="password" placeholder="Make sure to choose a really hard one!">
+                                        </div>
+                                        <div class="form-group" id="repeatedpasswordgrp">
+                                            <label class="control-label">Repeated Password
+                                                <br>
+                                            </label>
+                                            <input class="form-control" id="repeatedpassword" type="password">
+                                        </div>
+                                        <div class="form-group" id="genderDropdowngrp">
+                                            <label class="control-label">Gender
+                                                <br>
+                                            </label>
+                                            <select class="form-control" id="genderDropdown">
+                                                <option>Id prefer not to say</option>
+                                                <option>Male</option>
+                                                <option>Female</option>
+                                            </select>
+                                        </div>
+                                        <div class="btn-group">
+                                            <button onclick="Sijax.request('create_account', [$('#firstnameinput').val(),
                       $('#lastnameinput').val(),
                       $('#friendlynameinput').val(),
                       $('#usernameinput').val(),
@@ -62,18 +90,42 @@
                       $('#repeatemailinput').val(),
                       $('#password').val(),
                       $('#repeatedpassword').val(),
-                      $('#genderDropdown').val()]);"
-                        class="btn btn-success">Make Account</button>
-                      <div id="feedback_error"></div>
+                      $('#genderDropdown').val()]);" class="btn btn-success">Make Account</button>
+
+
+                                            <div class="modal fade" id="txtbox">
+                                                <div class="modal-dialog">
+                                                    <div class="modal-content">
+                                                        <div class="modal-header">
+                                                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                                                            <h4 class="modal-title">Thanks for signing up</h4></div>
+                                                        <div class="modal-body">
+                                                          <h4>First and Last name</h4>
+                                                          <p>First and last name should be no longer than 30 characters each and should not have any spaces or special text in them</p>
+                                                          <h4>What should we call you</h4>
+                                                          <p>This is your 'nickname' and can be customised at any time, unlike your first and last name. It must be no longer than 16 characters and can contain numbers, letters and spaces. It will appear when you login every time.</p>
+                                                          <h4>Email</h4>
+                                                          <p>Your email address should be no longer than 60 characters and should match the one below it. Make sure it is correct incase we need to contact you, however we do try not to.</p>
+                                                          <h4>Password</h4>
+                                                          <p>Your password should be very hard to guess, we also have blacklisted some of the more easier passwords. all passwords are encrypted with SHA-1 and must be a minimum of 8 characters long, we do not have any special character requirements.</p>
+
+                                                        </div>
+                                                        <div class="modal-footer"><a class="btn btn-default" data-dismiss="modal">Close</a></div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <button data-toggle="modal" href="#txtbox" class="btn btn-primary btn-large">Help</button>
+                                        </div>
+                                        <div id="feedback_error"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
-                  </div>
                 </div>
-              </div>
             </div>
-          </div>
         </div>
-      </div>
     </div>
-  </body>
+</body>
 
 </html>

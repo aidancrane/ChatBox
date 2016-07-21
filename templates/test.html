@@ -5,103 +5,22 @@
   <body>
     {% include 'navbars/indexbar/indexbar.html' %}
     <div class="container navbar-padding-to-nearcenter">
-      <div class="row">
-        <div class="col-md-3"><img src="http://pingendo.github.io/pingendo-bootstrap/assets/placeholder.png" class="img-responsive"></div>
-        <div class="col-md-9">
-          <div class="section">
-            <div class="container">
-              <div class="row">
-                <div class="col-md-9">
-                  <div class="section">
-                    <div class="container">
-                      <div class="row">
-                        <h1>Register</h1>
-                      </div>
-                    </div>
-                    <form role="form">
-                      <div class="form-group">
 
-                        <div class="row">
-                          <div class="col-lg-6">
-                            <label class="control-label" for="exampleInputEmail1">First Name</label>
-                            <div class="form-group"><input class="form-control" id="exampleInputEmail1" placeholder="Dave" type="text"></div>
-                          </div>
-                          <div class="col-lg-6">
-                            <label class="control-label" for="exampleInputEmail2">Last Name</label>
-                            <div class="form-group"><input class="form-control" id="exampleInputEmail1" placeholder="Jones" type="text"></div>
-                          </div>
-                        </div>
-                      </div>
-                      <div class="form-group">
-                        <label class="control-label" for="exampleInputEmail1">Friendly Name</label><input class="form-control" id="exampleInputEmail1" placeholder="What should we call you by?" type="text"></div>
-                      <div class="form-group">
-                        <label class="control-label" for="exampleInputPassword1">Screen Name</label><input class="form-control" id="exampleInputPassword1" placeholder="What would you like your username to be?" type="text"></div>
-                      <div class="form-group">
-                        <label class="control-label">Email<br></label><input class="form-control" type="email" placeholder="We won't send you spam"></div>
-                      <div class="form-group">
-                        <label class="control-label">Repeated Email<br></label><input class="form-control" type="text"></div>
-                      <div class="form-group">
-                        <label class="control-label">Password<br></label><input class="form-control" type="text" placeholder="Make sure to choose a really hard one!"></div>
-                      <div class="form-group">
-                        <label class="control-label">Repeated Password<br></label><input class="form-control" type="text"></div>
-                      <div class="form-group">
-                        <label class="control-label">Gender<br></label>
-                        <select class="form-control">
-                          <option>Male</option>
-                          <option>Female</option>
-                        </select>
-                      </div>
-                      <button type="submit" class="btn btn-success">Submit</button>
-                    </form>
+      <a data-toggle="modal" href="#txtbox" class="btn btn-primary btn-large">Launch demo modal</a>
+
+      <div class="modal fade" id="txtbox">
+          <div class="modal-dialog">
+              <div class="modal-content">
+                  <div class="modal-header">
+                      <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                      <h4 class="modal-title">Thanks for signing up</h4></div>
+                  <div class="modal-body">
+                      <p>textarea</p>
                   </div>
-                </div>
+                  <div class="modal-footer"><a class="btn btn-default" data-dismiss="modal">Close</a><a class="btn btn-primary">Save changes</a></div>
               </div>
-            </div>
           </div>
-        </div>
       </div>
-    </div>
-
-    <!--    <div class="container theme-showcase" role="main">
-      <p></p>
-      <div class="jumbotron">
-        <div class="container">
-
-          <form class="form-signin" method="POST" action="/">
-            <h2 class="form-signin-heading">Please sign in</h2>
-            <div class="row">
-              <div class="col-lg-6">
-                <BR>&nbsp;Default is admin, password
-                </BR>
-                <div class="input-group">
-                  <span class="input-group-addon" id="usr">Username</span>
-                  <input type="text" class="form-control" placeholder="username" id="username" name="username">
-                </div>
-              </div>
-
-              <div class="col-lg-6">
-                <BR>&nbsp;
-                <BR>
-                <div class="input-group">
-                  <span class="input-group-addon" id="passwd">Password
-                  </span>
-                  <input type="password" class="form-control" placeholder="************" id="password" name="password">
-                </div>
-              </div>
-              <BR>&nbsp;
-              </BR>
-              <button class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
-            </div>
-          </form>
-          <div align="center">
-            <script>
-              document.write('<a href="' + document.referrer + '">Go Back</a>');
-            </script>
-          </div>
-        </div>
-      </div>
-    </div>
-    -->
   </body>
 
 </html>
