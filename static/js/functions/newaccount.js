@@ -70,7 +70,7 @@ function email_match() {
 
 function create_success() {
   $('#feedback_error').html("<div class='col-sm-offset-2 col-sm-10'> <p class='help-block'><i class='fa fa-check' aria-hidden='true'></i> Welcome...</p> </div>").hide().fadeIn( 1000 );
-  $(location).attr('href', './dashboard');
+  $(location).attr('href', './signup/complete');
 }
 
 function emails_dont_match() {
