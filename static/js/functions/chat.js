@@ -2,6 +2,10 @@ function input_recorded() {
   $('#submit-button').addClass("btn-primary").removeClass("btn-warning");
 }
 
+window.setInterval(function(){
+  Sijax.request('get_latest_messages');
+}, 5000);
+
 $(document).keypress(function(event){
 
 	var keycode = (event.keyCode ? event.keyCode : event.which);

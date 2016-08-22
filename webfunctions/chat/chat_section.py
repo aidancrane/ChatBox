@@ -25,9 +25,12 @@ def chat():
     if 'loggedIn' in session:
         def parse_input(obj_response, input):
             obj_response.script('input_recorded()')
+        def message_get(obj_response):
+            obj_response.html_append('#viewfinder', ' This is an example of appeneded text.')
         if g.sijax.is_sijax_request:
             # Sijax request detected - let Sijax handle it
             g.sijax.register_callback('take_input', parse_input)
+            g.sijax.register_callback('get_latest_messages', message_get)
             return g.sijax.process_request()
         return render_template('chat.html')
     else:

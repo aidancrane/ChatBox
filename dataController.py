@@ -133,7 +133,23 @@ def addUser(firstname, lastname, friendlyname, username, email, password):  # Up
         "INSERT INTO users VALUES(?,?,?,?,?,?,?,?,?)", combo)
     connection.commit()
     closedb()
-
+"""\
+def channelQuery(channel):  # Updated July 20 2016
+    opendb()
+    # get user salt
+    detail = (username, username)
+    cursor.execute(
+        'SELECT * FROM Users WHERE email = ? OR username = ?', detail)
+    uid = cursor.fetchall()
+    for row in uid:
+        data = row
+    data = list(data)
+    # Remove sensitive information
+    data.pop(0)
+    data.pop(7)
+    data.pop(6)
+    return (data)
+"""
 
 def getPermission(username):
     pass

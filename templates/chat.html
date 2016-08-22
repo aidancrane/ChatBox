@@ -1,23 +1,43 @@
 <html>
 
 <head>
-    {% include 'stylesheets.html' %}
-    <script type="text/javascript" src="/static/js/functions/chat.js"></script>
+  {% include 'stylesheets.html' %}
+  <script type="text/javascript" src="/static/js/functions/chat.js"></script>
 </head>
 
 <body>
-    {% include 'navbars/indexbar/indexbar.html' %}
-    <div class="navbar-padding-to-nearmid">
-        <p>fsdfsdfsdfsdf</p>
-        <div>
-            <div class="input-group">
-                <span class="input-group-btn">
+  {% include 'navbars/indexbar/indexbar.html' %}
+  <div  class="texttable nav-light-padding">
+    <table class="table table-extra-condensed table-striped table-responsive">
+      <thead>
+        <tr>
+          <th>
+            @global
+          </th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td id="viewfinder">
+            <b>timestamp</b>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <b>timestamp</b>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+    <div>
+      <div class="input-group">
+        <span class="input-group-btn">
             <button class="btn btn-primary" id="submit-button" type="button">$</button>
           </span>
-                <input type="text" class="form-control" id="chat-box" placeholder="/help">
-            </div>
-        </div>
+        <input type="text" class="form-control" id="chat-box" placeholder="/help">
+      </div>
     </div>
+  </div>
 </body>
 
 </html>
