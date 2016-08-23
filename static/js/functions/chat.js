@@ -1,5 +1,6 @@
 function input_recorded() {
   $('#submit-button').addClass("btn-primary").removeClass("btn-warning");
+  $('#chat-box').val("");
 }
 
 window.setInterval(function(){
@@ -12,5 +13,6 @@ $(document).keypress(function(event){
 	if(keycode == '13'){
 		Sijax.request('take_input', [$('#chat-box').val()]);
     $('#submit-button').removeClass("btn-primary").addClass("btn-warning");
+    $('#chat-box').val("");
 	}
 });

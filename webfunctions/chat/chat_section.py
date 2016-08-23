@@ -16,6 +16,7 @@ import dataController as data
 # datacontroller [data] - Handles any database interaction
 #
 import logMaster as log
+import webfunctions.chat.chat_parser as chatdata
 
 chatPages = Blueprint('chatblueprint', __name__, template_folder='templates')
 
@@ -24,6 +25,7 @@ chatPages = Blueprint('chatblueprint', __name__, template_folder='templates')
 def chat():
     if 'loggedIn' in session:
         def parse_input(obj_response, input):
+
             obj_response.script('input_recorded()')
         def message_get(obj_response):
             obj_response.html_append('#viewfinder', ' This is an example of appeneded text.')
@@ -32,6 +34,6 @@ def chat():
             g.sijax.register_callback('take_input', parse_input)
             g.sijax.register_callback('get_latest_messages', message_get)
             return g.sijax.process_request()
-        return render_template('chat.html')
+        return render_template('chat.html', messages = chatdata.get_latest_messages("global"))
     else:
         return redirect("/")

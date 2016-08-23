@@ -8,6 +8,7 @@
 <body>
   {% include 'navbars/indexbar/indexbar.html' %}
   <div  class="texttable nav-light-padding">
+    <div style="overflow:scroll;">
     <table class="table table-extra-condensed table-striped table-responsive">
       <thead>
         <tr>
@@ -17,19 +18,17 @@
         </tr>
       </thead>
       <tbody>
-        <tr>
-          <td id="viewfinder">
-            <b>timestamp</b>
-          </td>
-        </tr>
+        {% for row in messages %}
         <tr>
           <td>
-            <b>timestamp</b>
+            <b title="{{ row[4] }}">{{ row[2] }} ></b> {{ row[3] }}
           </td>
         </tr>
+        {% endfor %}
       </tbody>
     </table>
     <div>
+    </div>
       <div class="input-group">
         <span class="input-group-btn">
             <button class="btn btn-primary" id="submit-button" type="button">$</button>
