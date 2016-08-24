@@ -8,6 +8,10 @@ window.setInterval(function(){
   Sijax.request('get_latest_messages');
 }, 5000);
 
+window.setInterval(function(){
+  Sijax.request('get_latest_update', [$('tr').last().attr('id')]);
+}, 5000);
+
 $(document).ready(function(){
   $('#borderedbox').animate({"scrollTop": $('#borderedbox')[0].scrollHeight}, "slow");
 });

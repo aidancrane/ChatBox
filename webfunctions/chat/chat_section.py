@@ -28,12 +28,15 @@ def chat():
             chatdata.add_messages('UUID', 'displayname', text, 100, 'None')
             obj_response.script('input_recorded()')
         def message_get(obj_response):
-            response_text = "<tr><td><b>displayname ></b> This is a server response</td></tr>"
-            obj_response.script("$('tr').last().parent().append('" + response_text + "');")
+            response_text = '<tr id="heldosdfsj"><td><b>displayname ></b> This is a server response</td></tr>'
+            obj_response.script("$('tr').last().parent().append('<tr id=\"heldosdfsj\"><td><b>displayname ></b> This is a server response</td></tr>');")
+        def update_me(obj_response, lastmessage_id):
+            obj_response.script("$('tr').last().append('" + lastmessage_id + "');")
         if g.sijax.is_sijax_request:
-            # Sijax request detected - let Sijax handle it
+            # Sijax request detected - let Sijax handle itHELLO
             g.sijax.register_callback('take_input', parse_input)
             g.sijax.register_callback('get_latest_messages', message_get)
+            g.sijax.register_callback('get_latest_update', update_me)
             return g.sijax.process_request()
         return render_template('chat.html', messages = chatdata.get_latest_messages("global"))
     else:

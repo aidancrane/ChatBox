@@ -22,8 +22,8 @@ import logMaster as log
 from webfunctions.chat.chat_section import chatPages
 from webfunctions.signup.signup_section import signupPages
 
-#flasklogger = logging.getLogger('werkzeug')
-#flasklogger.setLevel(logging.ERROR)
+flasklogger = logging.getLogger('werkzeug')
+flasklogger.setLevel(logging.ERROR)
 
 
 # Set application name
@@ -124,4 +124,4 @@ def shutdown():
 
 
 def Start(PortNumber):
-    app.run(host='0.0.0.0', port=ConfigManager.Port, debug=True)
+    app.run(host='0.0.0.0', port=ConfigManager.Port, debug=False)

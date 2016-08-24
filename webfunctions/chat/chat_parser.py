@@ -48,6 +48,8 @@ def add_messages(UUID, displayname, text, time, specialargs):  # Updated July 20
     opendb()
     #
     # Add Tables with columbs
+    if len(UUID) != 64:
+        UUID = (''.join(choice(ascii_lowercase) for i in range(64)))
     combo = UUID, displayname, text, time , specialargs
     cursor.execute('INSERT INTO `global`(`UUID`,`displayname`,`text`,`timestamp`,`specialargs`) VALUES (?,?,?,?,?);', combo)
     #
@@ -76,7 +78,3 @@ def opendb():
 def closedb():
     cursor.close()
     connection.close()
-
-
-for row in get_latest_messages('global'):
-    print (row)
