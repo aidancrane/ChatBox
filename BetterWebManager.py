@@ -124,4 +124,4 @@ def shutdown():
 
 
 def Start(PortNumber):
-    app.run(host='0.0.0.0', port=ConfigManager.Port, debug=False)
+    app.run(host='0.0.0.0', port=ConfigManager.Port, debug=True)

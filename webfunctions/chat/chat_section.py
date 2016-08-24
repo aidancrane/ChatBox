@@ -31,7 +31,8 @@ def chat():
             response_text = '<tr id="heldosdfsj"><td><b>displayname ></b> This is a server response</td></tr>'
             obj_response.script("$('tr').last().parent().append('<tr id=\"heldosdfsj\"><td><b>displayname ></b> This is a server response</td></tr>');")
         def update_me(obj_response, lastmessage_id):
-            obj_response.script("$('tr').last().append('" + lastmessage_id + "');")
+            obj_response.script("$('tr').last().parent().append('" + str(chatdata.buildHTMLMessages(lastmessage_id)) + "');")
+            obj_response.script("$('#borderedbox').animate({'scrollTop': $('#borderedbox')[0].scrollHeight}, 'slow');")
         if g.sijax.is_sijax_request:
             # Sijax request detected - let Sijax handle itHELLO
             g.sijax.register_callback('take_input', parse_input)

@@ -3,10 +3,10 @@ function input_recorded() {
   $('#chat-box').val("");
 }
 
-window.setInterval(function(){
-  $('#borderedbox').animate({"scrollTop": $('#borderedbox')[0].scrollHeight}, "slow");
-  Sijax.request('get_latest_messages');
-}, 5000);
+//window.setInterval(function(){
+//  $('#borderedbox').animate({"scrollTop": $('#borderedbox')[0].scrollHeight}, "slow");
+//  Sijax.request('get_latest_messages');
+//}, 5000);
 
 window.setInterval(function(){
   Sijax.request('get_latest_update', [$('tr').last().attr('id')]);
