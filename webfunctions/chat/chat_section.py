@@ -24,11 +24,12 @@ chatPages = Blueprint('chatblueprint', __name__, template_folder='templates')
 @flask_sijax.route(chatPages, "/chat")
 def chat():
     if 'loggedIn' in session:
-        def parse_input(obj_response, input):
-
+        def parse_input(obj_response, text):
+            chatdata.add_messages('UUID', 'displayname', text, 100, 'None')
             obj_response.script('input_recorded()')
         def message_get(obj_response):
-            obj_response.html_append('#viewfinder', ' This is an example of appeneded text.')
+            response_text = "<tr><td><b>displayname ></b> This is a server response</td></tr>"
+            obj_response.script("$('tr').last().parent().append('" + response_text + "');")
         if g.sijax.is_sijax_request:
             # Sijax request detected - let Sijax handle it
             g.sijax.register_callback('take_input', parse_input)

@@ -4,8 +4,13 @@ function input_recorded() {
 }
 
 window.setInterval(function(){
+  $('#borderedbox').animate({"scrollTop": $('#borderedbox')[0].scrollHeight}, "slow");
   Sijax.request('get_latest_messages');
 }, 5000);
+
+$(document).ready(function(){
+  $('#borderedbox').animate({"scrollTop": $('#borderedbox')[0].scrollHeight}, "slow");
+});
 
 $(document).keypress(function(event){
 

@@ -7,34 +7,35 @@
 
 <body>
   {% include 'navbars/indexbar/indexbar.html' %}
-  <div  class="texttable nav-light-padding">
-    <div style="overflow:scroll;">
-    <table class="table table-extra-condensed table-striped table-responsive">
-      <thead>
-        <tr>
-          <th>
-            @global
-          </th>
-        </tr>
-      </thead>
-      <tbody>
-        {% for row in messages %}
-        <tr>
-          <td>
-            <b title="{{ row[4] }}">{{ row[2] }} ></b> {{ row[3] }}
-          </td>
-        </tr>
-        {% endfor %}
-      </tbody>
-    </table>
-    <div>
+  <div class="texttable nav-light-padding">
+    <div class="borderedbox" id="borderedbox" style="overflow:auto;">
+      <table class="table table-extra-condensed table-striped table-responsive">
+        <thead>
+          <tr>
+            <th>
+              @global
+            </th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for row in messages %}
+          <tr id="{{row[1]}}">
+            <td>
+              <b title="{{ row[4] }}">{{ row[2] }} ></b> {{ row[3] }}
+            </td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+      <div id='endofrow'>
+      </div>
     </div>
-      <div class="input-group">
-        <span class="input-group-btn">
+    <div class="input-group">
+      <span class="input-group-btn">
             <button class="btn btn-primary" id="submit-button" type="button">$</button>
           </span>
-        <input type="text" class="form-control" id="chat-box" placeholder="/help">
-      </div>
+      <input type="text" class="form-control" id="chat-box" placeholder="/help">
+
     </div>
   </div>
 </body>

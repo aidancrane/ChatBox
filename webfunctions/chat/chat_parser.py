@@ -41,15 +41,15 @@ def buildDatabase():  # Updated July 20 2016
     connection.commit()
     closedb()
 
-def add_messages():  # Updated July 20 2016
+def add_messages(UUID, displayname, text, time, specialargs):  # Updated July 20 2016
     #
     # Open Database
     #
     opendb()
     #
     # Add Tables with columbs
-    #
-    cursor.execute('INSERT INTO `global`(`UUID`,`displayname`,`text`,`timestamp`,`specialargs`) VALUES ("dfs","gf","gf","dfg","sdg");')
+    combo = UUID, displayname, text, time , specialargs
+    cursor.execute('INSERT INTO `global`(`UUID`,`displayname`,`text`,`timestamp`,`specialargs`) VALUES (?,?,?,?,?);', combo)
     #
     # Generate UUID
     #
