@@ -76,9 +76,8 @@ def buildHTMLMessages(chat_id):
     try:
         for row in uid:
             data = row
-
-        combo = row[0] , getLastMessagenumber()
-        cursor.execute('SELECT * FROM global LIMIT ?, ?;', combo)
+        combo = row[0]
+        cursor.execute('SELECT * FROM global where messagenumber>?;', [combo])
         uid = cursor.fetchall()
         retbString = ""
         for row in uid:
@@ -91,9 +90,9 @@ def buildHTMLMessages(chat_id):
 
 def get_latest_messages(channel):  # Updated July 20 2016
     opendb()
-    # Check Email and Username for 'data'.
+    combo = int(getLastMessagenumber()) - 30, getLastMessagenumber()
     cursor.execute(
-        'SELECT `_rowid_`,* FROM `global` ORDER BY `_rowid_` ASC LIMIT 0, 500')
+        'SELECT `_rowid_`,* FROM `global` ORDER BY `_rowid_` ASC LIMIT ?, ?', combo)
     uid = cursor.fetchall()
     closedb()
     return uid
