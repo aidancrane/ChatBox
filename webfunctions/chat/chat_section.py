@@ -17,6 +17,7 @@ import dataController as data
 #
 import logMaster as log
 import webfunctions.chat.chat_parser as chatdata
+import webfunctions.chat.chat_commands as chatcoms
 
 chatPages = Blueprint('chatblueprint', __name__, template_folder='templates')
 
@@ -25,7 +26,7 @@ chatPages = Blueprint('chatblueprint', __name__, template_folder='templates')
 def chat():
     if 'loggedIn' in session:
         def parse_input(obj_response, text):
-            chatdata.add_messages('UUID', 'displayname', text, 100, 'None')
+            chatdata.add_messages('UUID', 'displayname', text.replace("\\\'","'").replace("'","\\\'"), 100, 'None')
             obj_response.script('input_recorded()')
         def message_get(obj_response):
             response_text = '<tr id="heldosdfsj"><td><b>displayname ></b> This is a server response</td></tr>'

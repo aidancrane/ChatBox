@@ -10,7 +10,7 @@ function input_recorded() {
 
 window.setInterval(function(){
   Sijax.request('get_latest_update', [$('tr').last().attr('id')]);
-}, 5000);
+}, 1000);
 
 $(document).ready(function(){
   $('#borderedbox').animate({"scrollTop": $('#borderedbox')[0].scrollHeight}, "slow");
