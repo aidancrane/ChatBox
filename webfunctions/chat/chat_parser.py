@@ -81,10 +81,10 @@ def buildHTMLMessages(chat_id):
         uid = cursor.fetchall()
         retbString = ""
         for row in uid:
-            retbString = retbString + "<tr id=" + row[1] + "><td><b title=" + row[4] + ">" + row[2] + "></b> " + row[3] + "</td></tr>"
+            retbString = retbString + "<tr id=" + row[1] + "><td><b title=" + row[4] + ">" + row[2] + " ></b> " + row[3] + "</td></tr>"
         return retbString
     except:
-        return False
+        return ''
     connection.commit()
     closedb()
 
