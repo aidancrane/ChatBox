@@ -32,8 +32,9 @@ def chat():
             obj_response.script("$('tr').last().parent().append('" + str(chatdata.buildHTMLMessages(lastmessage_id)) + "');")
             obj_response.script("$('#borderedbox').animate({'scrollTop': $('#borderedbox')[0].scrollHeight}, 'slow');")
         def parse_input(obj_response, text, lastmessage_id):
-            if chatcoms.check_for_commands(text) != False: #Check if there is a command, sanitisation not needed
-                post_message(obj_response, "Hello", chatcoms.sanitize(lastmessage_id))
+            command_response = chatcoms.check_for_commands(text)
+            if command_response != False: #Check if there is a command, sanitisation not needed
+                post_message(obj_response, command_response, chatcoms.sanitize(lastmessage_id))
                 obj_response.script("$('#borderedbox').animate({'scrollTop': $('#borderedbox')[0].scrollHeight}, 'slow');")
             elif chatcoms.check_empty(chatcoms.sanitize(text)) == False:
                 obj_response.script('input_error()')
