@@ -21,6 +21,7 @@ window.setInterval(function(){
 
 $(document).ready(function(){
   $('#borderedbox').animate({"scrollTop": $('#borderedbox')[0].scrollHeight}, "slow");
+  $('#chat-box').focus()
 });
 
 $(document).keypress(function(event){
@@ -30,5 +31,6 @@ $(document).keypress(function(event){
 		Sijax.request('take_input', [$('#chat-box').val(), $('tr').last().attr('id')]);
     $('#submit-button').removeClass("btn-primary").addClass("btn-warning");
     $('#chat-box').val("");
+    $('#chat-box').focus()
 	}
 });

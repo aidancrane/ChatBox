@@ -1,47 +1,52 @@
 .navbar-padding {
-  padding: 3rem 1.7rem;
-  text-align: left;
+    padding: 3rem 1.7rem;
+    text-align: left;
 }
 .pad-right-navbar {
-  padding-right: 1.7rem;
+    padding-right: 1.7rem;
 }
 .center-align-main {
-  float: none;
-  display: inline-block;
-  vertical-align: middle;
+    float: none;
+    display: inline-block;
+    vertical-align: middle;
 }
 .navbar-padding-to-nearcenter {
-  padding: 20rem 1.7rem;
-  text-align: left;
+    padding: 20rem 1.7rem;
+    text-align: left;
 }
 .navbar-padding-to-nearmid {
-  padding: 10rem 1.7rem;
-  text-align: left;
+    padding: 10rem 1.7rem;
+    text-align: left;
 }
 .login-other {
-  padding-top: 20px;
-  font-weight: 400;
+    padding-top: 20px;
+    font-weight: 400;
 }
 .textarea {
-  word-wrap: normal;
+    word-wrap: normal;
 }
 .texttable {
-  font-family: monospace;
-  text-indent: inherit;
+    font-family: monospace;
+    text-indent: inherit;
 }
-.table-extra-condensed > thead > tr > th,
-.table-extra-condensed > tbody > tr > th,
-.table-extra-condensed > tfoot > tr > th,
-.table-extra-condensed > thead > tr > td,
-.table-extra-condensed > tbody > tr > td,
-.table-extra-condensed > tfoot > tr > td {
-  padding: 2px !important;
+.table-extra-condensed> thead> tr> th, .table-extra-condensed> tbody> tr> th, .table-extra-condensed> tfoot> tr> th, .table-extra-condensed> thead> tr> td, .table-extra-condensed> tbody> tr> td, .table-extra-condensed> tfoot> tr> td {
+    padding: 2px !important;
 }
 .nav-light-padding {
-  padding: 5rem 1rem;
-  text-align: left;
+    padding: 5rem 1rem;
+    text-align: left;
 }
 .borderedbox {
-  height: 300rem;
-  max-height: 550px;
+    max-height: 95%;
+    min-width: 99%;
+    position: fixed;
+    bottom: 5rem;
+}
+div.stuckbottom {
+    position: fixed;
+    bottom: 1rem;
+    max-width: 99%;
+}
+lid #73AD21;
+
 }

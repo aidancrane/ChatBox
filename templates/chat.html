@@ -1,43 +1,43 @@
 <html>
 
 <head>
-  {% include 'stylesheets.html' %}
-  <script type="text/javascript" src="/static/js/functions/chat.js"></script>
+    {% include 'stylesheets.html' %}
+    <script type="text/javascript" src="/static/js/functions/chat.js"></script>
 </head>
 
 <body>
-  {% include 'navbars/indexbar/indexbar.html' %}
-  <div class="texttable nav-light-padding">
-    <div class="borderedbox" id="borderedbox" style="overflow:auto;">
-      <table class="table table-extra-condensed table-striped table-responsive">
-        <thead>
-          <tr>
-            <th>
-              @global
-            </th>
-          </tr>
-        </thead>
-        <tbody>
-          {% for row in messages %}
-          <tr id="{{row[2]}}">
-            <td>
-              <b title="{{ row[5] }}">{{ row[3] }} ></b> {{ row[4] }}
-            </td>
-          </tr>
-          {% endfor %}
-        </tbody>
-      </table>
-      <div id='endofrow'>
-      </div>
-    </div>
-    <div class="input-group">
-      <span class="input-group-btn">
+    {% include 'navbars/indexbar/indexbar.html' %}
+    <div class="texttable nav-light-padding">
+        <div class="borderedbox" id="borderedbox" style="overflow:auto;">
+            <table class="table table-extra-condensed table-striped table-responsive">
+                <thead>
+                    <tr>
+                        <th>
+                            @global
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for row in messages %}
+                    <tr id="{{row[2]}}">
+                        <td>
+                            <b title="{{ row[5] }}">{{ row[3] }} ></b> {{ row[4] }}
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+            <div id='endofrow'>
+            </div>
+        </div>
+        <div class="input-group stuckbottom">
+            <span class="input-group-btn">
             <button class="btn btn-primary" id="submit-button" type="button">$</button>
           </span>
-      <input type="text" class="form-control" id="chat-box" placeholder="/help">
+            <input type="text" class="form-control" id="chat-box" placeholder="/help">
 
+        </div>
     </div>
-  </div>
 </body>
 
 </html>
